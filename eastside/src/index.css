@@ -1,9 +1,20 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-    text-align: center;
+  text-align: center;
+}
+
+.nav {
+  background-color: aquamarine;
+  text-align: right;
+  padding: 1rem;
+}
+
+.navlink {
+  text-decoration: none;
+  margin: 0.5rem;
 }
 
 .card {
@@ -17,9 +28,19 @@ body {
   max-width: 300px;
 }
 
-.list{
+.list {
   font-family: sans-serif;
   display: flex;
   flex-direction: row;
   gap: 1rem;
+}
+
+.explore-btn {
+  background-color: cornflowerblue;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 16px;
+  border: none;
 }

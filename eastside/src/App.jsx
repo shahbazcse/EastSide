@@ -10,16 +10,29 @@ import Login from "./pages/Login";
 function App() {
   return (
     <div className="App">
-      <div>
-        <NavLink to="/products">Products</NavLink>
-        <span> </span>
-        <NavLink to="/profile">Profile</NavLink>
-        <span> </span>
-        <NavLink to="/wishlist">Wishlist</NavLink>
-        <span> </span>
-        <NavLink to="/cart">Cart</NavLink>
-        <span> </span>
-        <NavLink to="/login">Login</NavLink>
+      <div className="nav">
+        <NavLink className="navlink" to="/">
+          Home
+        </NavLink>
+        <NavLink className="navlink" to="/products">
+          Products
+        </NavLink>
+
+        <NavLink className="navlink" to="/profile">
+          Profile
+        </NavLink>
+
+        <NavLink className="navlink" to="/wishlist">
+          Wishlist
+        </NavLink>
+
+        <NavLink className="navlink" to="/cart">
+          Cart
+        </NavLink>
+
+        <NavLink className="navlink" to="/login">
+          Login
+        </NavLink>
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
