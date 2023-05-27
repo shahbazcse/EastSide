@@ -12,9 +12,13 @@ function App() {
     <div className="App">
       <div>
         <NavLink to="/products">Products</NavLink>
+        <span> </span>
         <NavLink to="/profile">Profile</NavLink>
+        <span> </span>
         <NavLink to="/wishlist">Wishlist</NavLink>
+        <span> </span>
         <NavLink to="/cart">Cart</NavLink>
+        <span> </span>
         <NavLink to="/login">Login</NavLink>
       </div>
       <Routes>
