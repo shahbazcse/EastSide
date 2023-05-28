@@ -1,8 +1,15 @@
 import { useContext } from "react";
+import { useParams } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
-import { Link } from "react-router-dom";
 
-export default function ProductCard({ ...prod }) {
+export default function ProductDetails() {
+  const { productId } = useParams();
+
+  const { state, dispatch } = useContext(AppContext);
+  const { data } = state;
+
+  const prod = data.find(({ id }) => id === Number(productId));
+
   const {
     id,
     name,
@@ -14,17 +21,14 @@ export default function ProductCard({ ...prod }) {
     units,
     inWishlist,
   } = prod;
+
   const cartPage = window.location.pathname === "/cart";
 
-  const { dispatch } = useContext(AppContext);
-
   return (
-    <div key={id} className="card">
-      <Link to={`/products/product/${id}`}>
-        <strong>
-          <p>{name}</p>
-        </strong>
-      </Link>
+    <div key={id}>
+      <strong>
+        <p>{name}</p>
+      </strong>
       <p>
         <strong>Brand:</strong> {brand}
       </p>
