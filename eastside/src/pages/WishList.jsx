@@ -3,8 +3,7 @@ import { AppContext } from "../contexts/AppContext";
 import ProductCard from "../components/ProductCard";
 
 export default function WishList() {
-  const { state } = useContext(AppContext);
-  const { wishlist } = state;
+  const { wishlist } = useContext(AppContext);
 
   return (
     <div>

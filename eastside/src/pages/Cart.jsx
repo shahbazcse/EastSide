@@ -3,8 +3,7 @@ import ProductCard from "../components/ProductCard";
 import { AppContext } from "../contexts/AppContext";
 
 export default function Cart() {
-  const { state } = useContext(AppContext);
-  const { cart } = state;
+  const { cart } = useContext(AppContext);
   return (
     <div>
       <h1>Cart</h1>

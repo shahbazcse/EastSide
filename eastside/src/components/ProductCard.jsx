@@ -15,8 +15,7 @@ export default function ProductCard({ ...prod }) {
   } = prod;
   const cartPage = window.location.pathname === "/cart";
 
-  const { addToCart, removeFromCart, addToWishList, removeFromWishList } =
-    useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
 
   return (
     <div key={id} className="card">
@@ -41,13 +40,19 @@ export default function ProductCard({ ...prod }) {
       {cartPage && <p>Quantity in cart: {units}</p>}
       <button
         onClick={() =>
-          !inWishlist ? addToWishList(prod) : removeFromWishList(prod)
+          !inWishlist
+            ? dispatch({ type: "addToWishlist", payload: prod })
+            : dispatch({ type: "removeFromWishlist", payload: prod })
         }
       >
         {!inWishlist ? "Add to Wishlist" : "Remove from wishlist"}
       </button>
       <button
-        onClick={() => (!cartPage ? addToCart(prod) : removeFromCart(prod))}
+        onClick={() =>
+          !cartPage
+            ? dispatch({ type: "addToCart", payload: prod })
+            : dispatch({ type: "removeFromCart", payload: prod })
+        }
       >
         {!cartPage ? "Add to cart" : "Remove from cart"}
       </button>
