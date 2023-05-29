@@ -20,7 +20,7 @@ export default function Cart() {
           <CartCard {...prod} key={prod.id} />
         ))}
       </div>
-      {itemCount && (
+      {itemCount ? (
         <div className="card">
           <h3>CART PRICE DETAILS</h3>
           <hr />
@@ -47,6 +47,8 @@ export default function Cart() {
             CHECKOUT
           </button>
         </div>
+      ) : (
+        <p>Cart Empty</p>
       )}
     </div>
   );
