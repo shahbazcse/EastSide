@@ -15,7 +15,9 @@ export default function ProductCard({ ...prod }) {
     inWishlist,
     inCart,
   } = prod;
+  
   const cartPage = window.location.pathname === "/cart";
+  const wishlistPage = window.location.pathname === "/wishlist";
 
   const { dispatch } = useContext(AppContext);
 
@@ -52,7 +54,7 @@ export default function ProductCard({ ...prod }) {
           <button
             onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
           >
-            +
+            Add To Cart
           </button>
         </span>
       )}
@@ -72,14 +74,17 @@ export default function ProductCard({ ...prod }) {
           >
             Add To Cart
           </button>
-        ) : (
+        ) : !wishlistPage ? (
           <button>
-            <Link
-              to="/cart"
-              style={{ textDecoration: "none", color: "black" }}
-            >
+            <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
               Go to Cart
             </Link>
+          </button>
+        ) : (
+          <button
+            onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
+          >
+            +
           </button>
         )
       ) : (
