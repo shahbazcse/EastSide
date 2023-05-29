@@ -41,6 +41,7 @@ export default function Cart() {
               padding: "0.5rem",
               backgroundColor: "blue",
               color: "white",
+              cursor: "pointer",
             }}
           >
             CHECKOUT
