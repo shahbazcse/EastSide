@@ -13,6 +13,7 @@ export default function ProductCard({ ...prod }) {
     brand,
     units,
     inWishlist,
+    inCart,
   } = prod;
   const cartPage = window.location.pathname === "/cart";
 
@@ -40,7 +41,21 @@ export default function ProductCard({ ...prod }) {
       <p>
         <strong>Category:</strong> {category}
       </p>
-      {cartPage && <p>Quantity in cart: {units}</p>}
+      {cartPage && (
+        <span>
+          <button
+            onClick={() => dispatch({ type: "decreaseQuantity", payload: id })}
+          >
+            -
+          </button>
+          <span> {units} </span>
+          <button
+            onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
+          >
+            +
+          </button>
+        </span>
+      )}
       <button
         onClick={() =>
           !inWishlist
@@ -50,15 +65,30 @@ export default function ProductCard({ ...prod }) {
       >
         {!inWishlist ? "Add to Wishlist" : "Remove from wishlist"}
       </button>
-      <button
-        onClick={() =>
-          !cartPage
-            ? dispatch({ type: "addToCart", payload: prod })
-            : dispatch({ type: "removeFromCart", payload: prod })
-        }
-      >
-        {!cartPage ? "Add to cart" : "Remove from cart"}
-      </button>
+      {!cartPage ? (
+        !inCart ? (
+          <button
+            onClick={() => dispatch({ type: "addToCart", payload: prod })}
+          >
+            Add To Cart
+          </button>
+        ) : (
+          <button>
+            <Link
+              to="/cart"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              Go to Cart
+            </Link>
+          </button>
+        )
+      ) : (
+        <button
+          onClick={() => dispatch({ type: "removeFromCart", payload: prod })}
+        >
+          Remove From Cart
+        </button>
+      )}
     </div>
   );
 }

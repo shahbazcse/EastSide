@@ -5,17 +5,9 @@ export const AppContext = createContext();
 
 export function AppProvider({ children }) {
   const addToCart = (state, action) => {
-    const foundInCart = state.data.find(
-      (p) => p.id === action.payload.id && p.inCart
+    const modified = state.data.map((p) =>
+      p.id === action.payload.id ? { ...p, inCart: true } : { ...p }
     );
-    const modified = foundInCart
-      ? state.data.map((p) =>
-          p.id === action.payload.id ? { ...p, units: p.units + 1 } : { ...p }
-        )
-      : state.data.map((p) =>
-          p.id === action.payload.id ? { ...p, inCart: true } : { ...p }
-        );
-
     return {
       ...state,
       data: [...modified],
@@ -23,13 +15,9 @@ export function AppProvider({ children }) {
   };
 
   const removeFromCart = (state, action) => {
-    // multiple quantity logic
-    const modified = state.data.map((p) => {
-      if (p.id === action.payload.id) {
-        if (p.units > 1) return { ...p, units: p.units - 1 };
-        else return { ...p, inCart: false };
-      } else return { ...p };
-    });
+    const modified = state.data.map((p) =>
+      p.id === action.payload.id ? { ...p, inCart: false } : { ...p }
+    );
     return {
       ...state,
       data: [...modified],
@@ -66,6 +54,30 @@ export function AppProvider({ children }) {
     }
   };
 
+  const increaseQuantity = (state, action) => {
+    const modified = state.data.map((p) =>
+      p.id === action.payload ? { ...p, units: p.units + 1 } : { ...p }
+    );
+    return {
+      ...state,
+      data: [...modified],
+    };
+  };
+
+  const decreaseQuantity = (state, action) => {
+    const modified = state.data.map((p) =>
+      p.id === action.payload
+        ? p.units > 1
+          ? { ...p, units: p.units - 1 }
+          : { ...p, inCart: false }
+        : { ...p }
+    );
+    return {
+      ...state,
+      data: [...modified],
+    };
+  };
+
   const reducerFn = (state, action) => {
     switch (action.type) {
       case "updateData":
@@ -81,6 +93,10 @@ export function AppProvider({ children }) {
         return addToWishList(state, action);
       case "removeFromWishlist":
         return removeFromWishList(state, action);
+      case "increaseQuantity":
+        return increaseQuantity(state, action);
+      case "decreaseQuantity":
+        return decreaseQuantity(state, action);
       default:
         return state;
     }
@@ -111,7 +127,7 @@ export function AppProvider({ children }) {
     getData();
   }, []);
 
-  const cart = state.data.filter((p) => p.inCart);
+  const cart = state.data.filter((p) => p.inCart && p.units != 0);
   const wishlist = state.data.filter((p) => p.inWishlist);
 
   return (
