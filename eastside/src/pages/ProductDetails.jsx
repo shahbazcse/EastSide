@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 
 export default function ProductDetails() {
@@ -20,15 +20,18 @@ export default function ProductDetails() {
     brand,
     units,
     inWishlist,
+    inCart
   } = prod;
 
   const cartPage = window.location.pathname === "/cart";
 
   return (
-    <div key={id}>
-      <strong>
-        <p>{name}</p>
-      </strong>
+    <div key={id} className="card">
+      <Link to={`/products/product/${id}`}>
+        <strong>
+          <p>{name}</p>
+        </strong>
+      </Link>
       <p>
         <strong>Brand:</strong> {brand}
       </p>
@@ -44,7 +47,21 @@ export default function ProductDetails() {
       <p>
         <strong>Category:</strong> {category}
       </p>
-      {cartPage && <p>Quantity in cart: {units}</p>}
+      {cartPage && (
+        <span>
+          <button
+            onClick={() => dispatch({ type: "decreaseQuantity", payload: id })}
+          >
+            -
+          </button>
+          <span> {units} </span>
+          <button
+            onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
+          >
+            +
+          </button>
+        </span>
+      )}
       <button
         onClick={() =>
           !inWishlist
@@ -54,15 +71,30 @@ export default function ProductDetails() {
       >
         {!inWishlist ? "Add to Wishlist" : "Remove from wishlist"}
       </button>
-      <button
-        onClick={() =>
-          !cartPage
-            ? dispatch({ type: "addToCart", payload: prod })
-            : dispatch({ type: "removeFromCart", payload: prod })
-        }
-      >
-        {!cartPage ? "Add to cart" : "Remove from cart"}
-      </button>
+      {!cartPage ? (
+        !inCart ? (
+          <button
+            onClick={() => dispatch({ type: "addToCart", payload: prod })}
+          >
+            Add To Cart
+          </button>
+        ) : (
+          <button>
+            <Link
+              to="/cart"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              Go to Cart
+            </Link>
+          </button>
+        )
+      ) : (
+        <button
+          onClick={() => dispatch({ type: "removeFromCart", payload: prod })}
+        >
+          Remove From Cart
+        </button>
+      )}
     </div>
   );
 }
