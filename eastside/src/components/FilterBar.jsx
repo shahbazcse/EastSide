@@ -8,10 +8,20 @@ export default function FilterBar() {
     <div className="filterBar">
       <fieldset>
         <legend>Filters</legend>
+        <button onClick={() => dispatch({ type: "clearFilters" })}>
+          Clear Filters
+        </button>
         <strong>
-          <button onClick={() => dispatch({ type: "clearFilters" })}>
-            Clear Filters
-          </button>
+          <p>
+            <input
+              value={state.query}
+              onChange={(e) =>
+                dispatch({ type: "setQuery", payload: e.target.value })
+              }
+              placeholder="Search Products"
+              type="text"
+            />
+          </p>
         </strong>
         <strong>
           <p>Sort by Price:</p>
