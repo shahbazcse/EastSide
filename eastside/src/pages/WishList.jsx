@@ -3,7 +3,11 @@ import { AppContext } from "../contexts/AppContext";
 import ProductCard from "../components/ProductCard";
 
 export default function WishList() {
-  const { wishlist } = useContext(AppContext);
+  const {
+    state: { products },
+  } = useContext(AppContext);
+
+  const wishlist = products.filter((p) => p.inWishlist);
 
   return (
     <div>

@@ -5,15 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AppProvider, AppContext } from "./contexts/AppContext";
+import { FilterProvider, FilterContext } from "./contexts/FilterContext";
 
-export { AppContext };
+export { AppContext, FilterContext };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
       <AppProvider>
+        <FilterProvider>
           <App />
+        </FilterProvider>
       </AppProvider>
     </Router>
   </React.StrictMode>

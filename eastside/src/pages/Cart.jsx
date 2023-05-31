@@ -1,9 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext  } from "react";
 import CartCard from "../components/CartCard";
 import { AppContext } from "../contexts/AppContext";
 
 export default function Cart() {
-  const { cart } = useContext(AppContext);
+  const {
+    state: { products },
+  } = useContext(AppContext);
+
+  const cart = products.filter((p) => p.inCart);
 
   const totalPrice = cart.reduce(
     (acc, { price, units }) => acc + price * units,
@@ -24,8 +28,8 @@ export default function Cart() {
         <div className="card">
           <h3>CART PRICE DETAILS</h3>
           <hr />
-          {cart.map(({ name, units, price }) => (
-            <p>
+          {cart.map(({ id, name, units, price }) => (
+            <p key={id}>
               <span>
                 {name} ({units}) Rs.{price}
               </span>
