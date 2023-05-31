@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { AppContext } from "./AppContext";
 
 export const FilterContext = createContext();
@@ -50,6 +50,11 @@ export function FilterProvider({ children }) {
     }
   };
 
+  const setCategoryFromHome = (category) => {
+    dispatch({ type: "clearFilters" });
+    dispatch({ type: "setCategories", payload: category, checked: true });
+  };
+
   const initialState = {
     sortBy: "",
     categories: [],
@@ -68,11 +73,13 @@ export function FilterProvider({ children }) {
           p.name.toLowerCase().includes(state.query.toLowerCase()))
     )
     .sort((a, b) =>
-      state.sortBy === "LTH" ? a.price - b.price : b.price - a.price
+      state.sortBy === "HTL" ? b.price - a.price : a.price - b.price
     );
 
   return (
-    <FilterContext.Provider value={{ state, dispatch, filteredData }}>
+    <FilterContext.Provider
+      value={{ state, dispatch, filteredData, setCategoryFromHome }}
+    >
       {children}
     </FilterContext.Provider>
   );
