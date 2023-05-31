@@ -1,6 +1,6 @@
 import { useContext  } from "react";
-import CartCard from "../components/CartCard";
 import { AppContext } from "../contexts/AppContext";
+import ProductCard from '../components/ProductCard';
 
 export default function Cart() {
   const {
@@ -21,7 +21,7 @@ export default function Cart() {
       <h1>Cart</h1>
       <div>
         {cart.map((prod) => (
-          <CartCard {...prod} key={prod.id} />
+          <ProductCard {...prod} key={prod.id} />
         ))}
       </div>
       {itemCount ? (

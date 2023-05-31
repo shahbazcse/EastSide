@@ -54,7 +54,7 @@ export default function ProductCard({ ...prod }) {
           <button
             onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
           >
-            Add To Cart
+            +
           </button>
         </span>
       )}
