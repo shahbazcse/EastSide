@@ -78,6 +78,22 @@ export function AppProvider({ children }) {
     };
   };
 
+  const addAddress = (state, action) => {
+    console.log("Added new address");
+  };
+
+  const updateAddress = (state, action) => {
+    console.log("Address Updated");
+  };
+
+  const deleteAddress = (state, action) => {
+    const curr = state.address.filter(({ aId }) => aId !== action.payload);
+    return {
+      ...state,
+      address: [...curr],
+    };
+  };
+
   const reducerFn = (state, action) => {
     switch (action.type) {
       case "setDB":
@@ -97,6 +113,12 @@ export function AppProvider({ children }) {
         return increaseQuantity(state, action);
       case "decreaseQuantity":
         return decreaseQuantity(state, action);
+      case "addAddress":
+        return addAddress(state, action);
+      case "updateAddress":
+        return updateAddress(state, action);
+      case "deleteAddress":
+        return deleteAddress(state, action);
       default:
         return state;
     }
@@ -104,6 +126,18 @@ export function AppProvider({ children }) {
 
   const initialState = {
     products: [],
+    address: [
+      {
+        aId: 1,
+        name: "John Doe",
+        street: "350 Afco Rd",
+        city: "West Memphis",
+        state: "Arizona",
+        zip: 72301,
+        phone: "(870) 702-2051",
+        country: "United States",
+      },
+    ],
   };
 
   const [state, dispatch] = useReducer(reducerFn, initialState);

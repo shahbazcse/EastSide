@@ -1,6 +1,7 @@
-import { useContext  } from "react";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
-import ProductCard from '../components/ProductCard';
+import ProductCard from "../components/ProductCard";
 
 export default function Cart() {
   const {
@@ -39,17 +40,19 @@ export default function Cart() {
           <p>
             <strong>Total Price:</strong> Rs.{totalPrice}
           </p>
-          <button
-            style={{
-              borderRadius: "16px",
-              padding: "0.5rem",
-              backgroundColor: "blue",
-              color: "white",
-              cursor: "pointer",
-            }}
-          >
-            CHECKOUT
-          </button>
+          <Link to="/checkout">
+            <button
+              style={{
+                borderRadius: "16px",
+                padding: "0.5rem",
+                backgroundColor: "blue",
+                color: "white",
+                cursor: "pointer",
+              }}
+            >
+              CHECKOUT
+            </button>
+          </Link>
         </div>
       ) : (
         <p>Cart Empty</p>
