@@ -1,4 +1,4 @@
-export default function AddressForm({
+export default function AddressCard({
   aId,
   name,
   street,

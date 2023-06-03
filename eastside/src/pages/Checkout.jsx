@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
-import AddressForm from "../components/AddressForm";
+import AddressCard from "../components/AddressCard";
 
 export default function Checkout() {
   const {
@@ -21,7 +21,7 @@ export default function Checkout() {
           <p>Choose a delivery address</p>
         </strong>
         {address.map((address) => (
-          <AddressForm {...address} />
+          <AddressCard {...address} />
         ))}
       </div>
       <div className="card">
