@@ -79,18 +79,28 @@ export function AppProvider({ children }) {
   };
 
   const addAddress = (state, action) => {
-    console.log("Added new address");
+    return {
+      ...state,
+      addresses: [...state.addresses, { ...action.payload }],
+    };
   };
 
   const updateAddress = (state, action) => {
-    console.log("Address Updated");
+    const modified = state.addresses.filter(
+      ({ aId }) => aId !== action.payload.aId
+    );
+
+    return {
+      ...state,
+      addresses: [...modified, action.payload],
+    };
   };
 
   const deleteAddress = (state, action) => {
-    const curr = state.address.filter(({ aId }) => aId !== action.payload);
+    const curr = state.addresses.filter(({ aId }) => aId !== action.payload);
     return {
       ...state,
-      address: [...curr],
+      addresses: [...curr],
     };
   };
 
@@ -119,11 +129,6 @@ export function AppProvider({ children }) {
         return updateAddress(state, action);
       case "deleteAddress":
         return deleteAddress(state, action);
-      case "selectAddress":
-        return {
-          ...state,
-          selectedAddress: action.payload,
-        };
       default:
         return state;
     }
@@ -142,18 +147,7 @@ export function AppProvider({ children }) {
         phone: "(870) 702-2051",
         country: "United States",
       },
-      {
-        aId: 2,
-        name: "John Doe",
-        street: "350 Afco Rd",
-        city: "West Memphis",
-        state: "Arizona",
-        zip: 72301,
-        phone: "(870) 702-2051",
-        country: "United States",
-      },
     ],
-    selectedAddress: {},
   };
 
   const [state, dispatch] = useReducer(reducerFn, initialState);
@@ -176,8 +170,6 @@ export function AppProvider({ children }) {
   useEffect(() => {
     getData();
   }, []);
-
-  console.log(state.selectedAddress);
 
   return (
     <AppContext.Provider

@@ -18,15 +18,21 @@ export default function Checkout() {
 
   const [showCheckout, setShowCheckout] = useState(false);
 
+  const [selectedAddress, setSelectedAddress] = useState(null);
+
   return (
     <div>
       {!showCheckout && (
         <div>
-          <AddressList />
+          <AddressList
+            selectedAddress={selectedAddress}
+            setSelectedAddress={setSelectedAddress}
+          />
 
           <CheckoutDetails
             cart={cart}
             totalPrice={totalPrice}
+            selectedAddress={selectedAddress}
             setShowCheckout={setShowCheckout}
           />
         </div>
@@ -35,6 +41,7 @@ export default function Checkout() {
         <OrderSummary
           cart={cart}
           totalPrice={totalPrice}
+          selectedAddress={selectedAddress}
           setShowCheckout={setShowCheckout}
         />
       )}

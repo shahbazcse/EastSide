@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
-
-export default function OrderSummary({ cart, totalPrice, setShowCheckout }) {
-  const {
-    state: { selectedAddress },
-  } = useContext(AppContext);
+export default function OrderSummary({
+  cart,
+  totalPrice,
+  selectedAddress,
+  setShowCheckout,
+}) {
   const { name, street, city, state, zip, phone, country } = selectedAddress;
 
   return (
@@ -19,10 +18,10 @@ export default function OrderSummary({ cart, totalPrice, setShowCheckout }) {
           <p style={{ textAlign: "right" }}>Quantity</p>
         </strong>
         {cart.map(({ id, name, units }) => (
-          <p key={id}>
+          <div key={id}>
             <p style={{ textAlign: "left" }}>{name}</p>
             <p style={{ textAlign: "right" }}>{units}</p>
-          </p>
+          </div>
         ))}
         <hr />
         <strong>

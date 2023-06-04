@@ -1,11 +1,9 @@
-import { useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
-
-export default function CheckoutDetails({ cart, totalPrice, setShowCheckout }) {
-  const {
-    state: { selectedAddress },
-  } = useContext(AppContext);
-
+export default function CheckoutDetails({
+  cart,
+  totalPrice,
+  selectedAddress,
+  setShowCheckout,
+}) {
   return (
     <div className="card">
       <strong>
@@ -16,10 +14,10 @@ export default function CheckoutDetails({ cart, totalPrice, setShowCheckout }) {
         <p style={{ textAlign: "right" }}>Quantity</p>
       </strong>
       {cart.map(({ id, name, units }) => (
-        <p key={id}>
+        <div key={id}>
           <p style={{ textAlign: "left" }}>{name}</p>
           <p style={{ textAlign: "right" }}>{units}</p>
-        </p>
+        </div>
       ))}
       <hr />
       <strong>
@@ -32,9 +30,9 @@ export default function CheckoutDetails({ cart, totalPrice, setShowCheckout }) {
       </strong>
       <button
         onClick={() =>
-          selectedAddress.length === 1
+          selectedAddress
             ? setShowCheckout(true)
-            : console.log("Please select an address to proceed")
+            : alert("Please select an address to proceed")
         }
       >
         Place Order
