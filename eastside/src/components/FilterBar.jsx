@@ -54,8 +54,8 @@ export default function FilterBar() {
         </strong>
         <label>
           <input
-            checked={state.categories.includes("Smartphones")}
-            value="Smartphones"
+            checked={state.categories.includes("men's clothing")}
+            value="men's clothing"
             onChange={(e) =>
               dispatch({
                 type: "setCategories",
@@ -65,12 +65,12 @@ export default function FilterBar() {
             }
             type="checkbox"
           />{" "}
-          Smartphones
+          Men
         </label>
         <label>
           <input
-            checked={state.categories.includes("Laptops")}
-            value="Laptops"
+            checked={state.categories.includes("jewelery")}
+            value="jewelery"
             onChange={(e) =>
               dispatch({
                 type: "setCategories",
@@ -80,14 +80,44 @@ export default function FilterBar() {
             }
             type="checkbox"
           />{" "}
-          Laptops
+          Jewellery
+        </label>
+        <label>
+          <input
+            checked={state.categories.includes("electronics")}
+            value="electronics"
+            onChange={(e) =>
+              dispatch({
+                type: "setCategories",
+                payload: e.target.value,
+                checked: e.target.checked,
+              })
+            }
+            type="checkbox"
+          />{" "}
+          Electronics
+        </label>
+        <label>
+          <input
+            checked={state.categories.includes("women's clothing")}
+            value="women's clothing"
+            onChange={(e) =>
+              dispatch({
+                type: "setCategories",
+                payload: e.target.value,
+                checked: e.target.checked,
+              })
+            }
+            type="checkbox"
+          />{" "}
+          Women
         </label>
 
         <strong>
           <p> Ratings:</p>
         </strong>
         <label>
-          <p>0+ 1+ 2+ 3+ 4+ 5+</p>
+          <p>{state.rating}⭐ and above</p>
           <input
             onChange={(e) =>
               dispatch({ type: "setRating", payload: e.target.value })

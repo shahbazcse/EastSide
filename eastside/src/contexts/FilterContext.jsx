@@ -68,9 +68,9 @@ export function FilterProvider({ children }) {
     .filter(
       (p) =>
         (!state.categories.length || state.categories.includes(p.category)) &&
-        p.rating >= state.rating &&
+        p.rating.rate >= state.rating &&
         (!state.query.length ||
-          p.name.toLowerCase().includes(state.query.toLowerCase()))
+          p.title.toLowerCase().includes(state.query.toLowerCase()))
     )
     .sort((a, b) =>
       state.sortBy === "HTL" ? b.price - a.price : a.price - b.price

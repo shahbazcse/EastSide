@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import ProductDetails from "./pages/ProductDetails";
 import Checkout from "./pages/Checkout";
+import Mockman from "mockman-js";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         </NavLink>
       </div>
       <Routes>
+        <Route path="/mockman" element={<Mockman />} />
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route

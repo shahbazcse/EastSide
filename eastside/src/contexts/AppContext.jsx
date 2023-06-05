@@ -1,5 +1,4 @@
 import { createContext, useEffect, useReducer } from "react";
-import { fakeFetch } from "../api/fakeFetch";
 
 export const AppContext = createContext();
 
@@ -109,7 +108,7 @@ export function AppProvider({ children }) {
       case "setDB":
         return {
           ...state,
-          products: [...action.payload],
+          products: action.payload,
         };
       case "addToCart":
         return addToCart(state, action);
@@ -154,16 +153,21 @@ export function AppProvider({ children }) {
 
   const getData = async () => {
     try {
-      const response = await fakeFetch("https://example.com/api/products");
-      const db = response.data.products.map((p) => ({
-        ...p,
-        inCart: false,
-        inWishlist: false,
-        units: 1,
-      }));
-      dispatch({ type: "setDB", payload: db });
+      const response = await fetch("/api/products");
+      const products = await response.json();
+
+      // const response = await fakeFetch("https://example.com/api/products");
+      // const db = response.data.products.map((p) => ({
+      //   ...p,
+      //   inCart: false,
+      //   inWishlist: false,
+      //   units: 1,
+      // }));
+      // dispatch({ type: "setDB", payload: db });
+
+      dispatch({ type: "setDB", payload: products.products });
     } catch (e) {
-      console.log("Error: ", e);
+      console.error(e);
     }
   };
 

@@ -13,20 +13,38 @@ export default function Home() {
       <div>
         <Link to="/products">
           <button
-            onClick={() => setCategoryFromHome("Smartphones")}
+            onClick={() => setCategoryFromHome("men's clothing")}
             className="explore-btn"
             style={{ margin: "1rem" }}
           >
-            Latest Smartphones
+            Men
           </button>
         </Link>
         <Link to="/products">
           <button
-            onClick={() => setCategoryFromHome("Laptops")}
+            onClick={() => setCategoryFromHome("jewelery")}
             className="explore-btn"
             style={{ margin: "1rem" }}
           >
-            Latest Laptops
+            Jewellery
+          </button>
+        </Link>
+        <Link to="/products">
+          <button
+            onClick={() => setCategoryFromHome("electronics")}
+            className="explore-btn"
+            style={{ margin: "1rem" }}
+          >
+            Electronics
+          </button>
+        </Link>
+        <Link to="/products">
+          <button
+            onClick={() => setCategoryFromHome("women's clothing")}
+            className="explore-btn"
+            style={{ margin: "1rem" }}
+          >
+            Women
           </button>
         </Link>
       </div>
