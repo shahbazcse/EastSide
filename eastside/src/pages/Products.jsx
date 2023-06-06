@@ -6,14 +6,15 @@ import { FilterContext } from "../contexts/FilterContext";
 export default function Products() {
   const { filteredData } = useContext(FilterContext);
   return (
-    <div>
-      <h1>Products</h1>
+    <main className="products-page">
       <FilterBar />
-      <div className="list">
-        {filteredData.map((prod) => (
-          <ProductCard {...prod} key={prod.id} />
-        ))}
-      </div>
-    </div>
+      <section className="products-container">
+        <div className="products-items">
+          {filteredData.map((prod) => (
+            <ProductCard {...prod} key={prod.id} />
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }

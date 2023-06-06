@@ -8,34 +8,65 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import ProductDetails from "./pages/ProductDetails";
 import Checkout from "./pages/Checkout";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faShirt,
+  faHeartCirclePlus,
+  faCartPlus,
+  faMagnifyingGlass,
+  faHouse,
+} from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   return (
     <div className="App">
-      <div className="nav">
-        <NavLink className="navlink" to="/">
-          Home
-        </NavLink>
-        <NavLink className="navlink" to="/products">
-          Products
-        </NavLink>
+      <header>
+        <nav>
+          <NavLink to="/">
+            <div className="logo">
+              <FontAwesomeIcon icon={faHouse} />
+            </div>
+          </NavLink>
+          <form className="search-input">
+            <input type="text" placeholder="Search for books" />
+            <button>
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </button>
+          </form>
 
-        {/* <NavLink className="navlink" to="/profile">
+          <ul className="nav-links">
+            <li className="list">
+              <NavLink to="/products">
+                <FontAwesomeIcon icon={faShirt} />
+              </NavLink>
+            </li>
+
+            {/* <li className="list">
+              <NavLink to="/profile">
           Profile
-        </NavLink> */}
-
-        <NavLink className="navlink" to="/wishlist">
-          Wishlist
         </NavLink>
+            </li> */}
 
-        <NavLink className="navlink" to="/cart">
-          Cart
-        </NavLink>
+            <li className="list">
+              <NavLink to="/wishlist">
+                <FontAwesomeIcon icon={faHeartCirclePlus} />
+              </NavLink>
+            </li>
 
-        {/* <NavLink className="navlink" to="/login">
+            <li className="list">
+              <NavLink to="/cart">
+                <FontAwesomeIcon icon={faCartPlus} />
+              </NavLink>
+            </li>
+
+            {/* <li className="list">
+              <NavLink to="/login">
           Login
-        </NavLink> */}
-      </div>
+        </NavLink>
+            </li> */}
+          </ul>
+        </nav>
+      </header>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ProductCard({ ...prod }) {
   const {
@@ -14,29 +14,40 @@ export default function ProductCard({ ...prod }) {
     inWishlist,
     inCart,
   } = prod;
-  
+
+  const navigate = useNavigate();
   const cartPage = window.location.pathname === "/cart";
   const wishlistPage = window.location.pathname === "/wishlist";
 
   const { dispatch } = useContext(AppContext);
 
   return (
-    <div key={id} className="card">
-      <img src={image} alt="Sample" />
-      <Link to={`/products/product/${id}`}>
-        <strong>
-          <p>{title}</p>
-        </strong>
-      </Link>
-      <p>
-        <strong>Price:</strong> Rs.{price}
-      </p>
-      <p>
-        <strong>Available In Stock:</strong> {rating.count}
-      </p>
-      <p>
-        <strong>Category:</strong> {category}
-      </p>
+    <div key={id} className="product-card">
+      <div
+        className="product-card__image"
+        onClick={() => navigate(`/products/product/${id}`)}
+      >
+        <img src={image} alt="Sample" />
+      </div>
+      <div className="product-card__details">
+        <div
+          className="product-card__details-title"
+          onClick={() => navigate(`/products/product/${id}`)}
+        >
+          <strong>
+            <p>{title}</p>
+          </strong>
+        </div>
+        <p>
+          <strong>Price:</strong> Rs.{price}
+        </p>
+        <p>
+          <strong>Available In Stock:</strong> {rating.count}
+        </p>
+        <p>
+          <strong>Category:</strong> {category}
+        </p>
+      </div>
       {cartPage && (
         <span>
           <button
@@ -53,6 +64,7 @@ export default function ProductCard({ ...prod }) {
         </span>
       )}
       <button
+        className="product-card__btn `"
         onClick={() =>
           !inWishlist
             ? dispatch({ type: "addToWishlist", payload: prod })
@@ -64,18 +76,20 @@ export default function ProductCard({ ...prod }) {
       {!cartPage ? (
         !inCart ? (
           <button
+            className="product-card__btn"
             onClick={() => dispatch({ type: "addToCart", payload: prod })}
           >
             Add To Cart
           </button>
         ) : !wishlistPage ? (
-          <button>
+          <button className="product-card__btn in-cart-btn">
             <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
               Go to Cart
             </Link>
           </button>
         ) : (
           <button
+            className="product-card__btn"
             onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
           >
             Add again
@@ -83,6 +97,7 @@ export default function ProductCard({ ...prod }) {
         )
       ) : (
         <button
+          className="product-card__btn"
           onClick={() => dispatch({ type: "removeFromCart", payload: prod })}
         >
           Remove From Cart
