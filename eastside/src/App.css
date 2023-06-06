@@ -1537,10 +1537,13 @@ input[type="range"] {
 
   .cart-product__details {
     flex-direction: column;
+    justify-content: space-between;
   }
 
   .cart-product__image {
     background-color: #f9f5ff;
+    max-height: 3.5rem;
+    max-width: 1.5rem;
   }
 
   .address-page {

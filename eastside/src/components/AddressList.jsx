@@ -15,7 +15,7 @@ export default function AddressList({ selectedAddress, setSelectedAddress }) {
   };
 
   return (
-    <div className="card">
+    <div className="checkout-container__address">
       <strong>
         <p>Choose a delivery address</p>
       </strong>
@@ -29,7 +29,12 @@ export default function AddressList({ selectedAddress, setSelectedAddress }) {
         />
       ))}
       {!showForm && (
-        <button onClick={() => setShowForm(true)}>Add new address</button>
+        <button
+          className="checkout-container__new-address"
+          onClick={() => setShowForm(true)}
+        >
+          <h3>Add new address</h3>
+        </button>
       )}
       {showForm && <AddressForm setShowForm={setShowForm} />}
     </div>

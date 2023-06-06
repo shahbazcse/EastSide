@@ -23,18 +23,21 @@ export default function Checkout() {
   return (
     <div>
       {!showCheckout && (
-        <div>
-          <AddressList
-            selectedAddress={selectedAddress}
-            setSelectedAddress={setSelectedAddress}
-          />
+        <div className="checkout-page">
+          <h2 className="checkout-header">Checkout</h2>
+          <div className="checkout-container">
+            <AddressList
+              selectedAddress={selectedAddress}
+              setSelectedAddress={setSelectedAddress}
+            />
 
-          <CheckoutDetails
-            cart={cart}
-            totalPrice={totalPrice}
-            selectedAddress={selectedAddress}
-            setShowCheckout={setShowCheckout}
-          />
+            <CheckoutDetails
+              cart={cart}
+              totalPrice={totalPrice}
+              selectedAddress={selectedAddress}
+              setShowCheckout={setShowCheckout}
+            />
+          </div>
         </div>
       )}
       {showCheckout && (

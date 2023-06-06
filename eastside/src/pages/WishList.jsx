@@ -10,13 +10,17 @@ export default function WishList() {
   const wishlist = products.filter((p) => p.inWishlist);
 
   return (
-    <div>
-      <h1>Wishlist</h1>
-      <div className="list">
-        {wishlist.map((prod) => (
-          <ProductCard {...prod} key={prod.id} />
-        ))}
-      </div>
-    </div>
+    <main className="wishlist-page">
+      <h2 className="wishlist-header">Wishlist ({wishlist.length})</h2>
+      {wishlist.length === 0 ? (
+        <p className="wishlist-empty">Empty Wishlist!</p>
+      ) : (
+        <div className="wishlist-container">
+          {wishlist.map((prod) => {
+            return <ProductCard {...prod} key={prod.id} />;
+          })}
+        </div>
+      )}
+    </main>
   );
 }

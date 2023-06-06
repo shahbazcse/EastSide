@@ -89,7 +89,7 @@ export default function ProductCard({ ...prod }) {
           </button>
         ) : (
           <button
-            className="product-card__btn"
+            className="product-card__btn in-cart-btn"
             onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
           >
             Add again

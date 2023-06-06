@@ -14,7 +14,7 @@ export default function EditingForm({ address, setEditing }) {
   return (
     <div>
       <h3>Editing Form</h3>
-      <div>
+      <form className="address-form">
         <div>
           <label>
             Name:{" "}
@@ -94,9 +94,11 @@ export default function EditingForm({ address, setEditing }) {
           </label>
           <hr />
         </div>
-      </div>
-      <button onClick={() => handleSave()}>Save</button>
-      <button onClick={() => setEditing(false)}>Cancel</button>
+        <div className="address-form-btn-group">
+          <button onClick={() => handleSave()}>Save</button>
+          <button onClick={() => setEditing(false)}>Cancel</button>
+        </div>
+      </form>
     </div>
   );
 }

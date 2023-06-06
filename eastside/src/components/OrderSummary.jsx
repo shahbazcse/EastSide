@@ -7,22 +7,23 @@ export default function OrderSummary({
   const { name, street, city, state, zip, phone, country } = selectedAddress;
 
   return (
-    <div>
-      <h3>Order Summary</h3>
-      <div className="card">
-        <strong>
-          <p>Order Details</p>
-        </strong>
-        <strong>
-          <p style={{ textAlign: "left" }}>Name</p>
-          <p style={{ textAlign: "right" }}>Quantity</p>
-        </strong>
-        {cart.map(({ id, name, units }) => (
-          <div key={id}>
-            <p style={{ textAlign: "left" }}>{name}</p>
-            <p style={{ textAlign: "right" }}>{units}</p>
+    <div style={{display: 'flex', justifyContent: 'center', marginTop: "5rem"}}>
+      <div className="checkout-container__details">
+        <h3>Order Summary</h3>
+        <div className="flex-col-gap">
+          <div className="flex-row font-bold">
+            <p>Name</p>
+            <p>Quantity</p>
           </div>
-        ))}
+          <div className="flex-items-col">
+            {cart.map(({ id, title, units }) => (
+              <div key={id}>
+                <p style={{ textAlign: "left" }}>{title}</p>
+                <p style={{ textAlign: "right" }}>{units}</p>
+              </div>
+            ))}
+          </div>
+        </div>
         <hr />
         <strong>
           <p>Your order will be delivered here:</p>
@@ -41,17 +42,23 @@ export default function OrderSummary({
             <strong>{phone}</strong>
           </p>
         </div>
-
-        <strong>
-          <p>Price Details</p>
-        </strong>
-        <p>Price: Rs.{totalPrice}</p>
-        <p>Discount: </p>
-        <strong>
-          <p>Total Amount: Rs.{totalPrice}</p>
-        </strong>
-        <button>Pay Now</button>
-        <button onClick={() => setShowCheckout(false)}>Cancel</button>
+        <hr />
+        <h3>Price Details</h3>
+        <div className="flex-col-gap">
+          <div className="flex-items-col">
+            <div className="flex-row font-bold">
+              <p>Total Amount</p>
+              <p>Rs. {totalPrice}</p>
+            </div>
+          </div>
+        </div>
+        <button className="place-order-btn">Pay Now</button>
+        <button
+          className="place-order-btn"
+          onClick={() => setShowCheckout(false)}
+        >
+          Cancel
+        </button>
       </div>
     </div>
   );

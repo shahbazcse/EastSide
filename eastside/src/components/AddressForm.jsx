@@ -24,9 +24,9 @@ export default function AddressForm({ setShowForm }) {
   };
 
   return (
-    <div className="card">
+    <div className="address-form-container">
       <h3>Address Form</h3>
-      <div>
+      <form className="address-form">
         <div>
           <label>
             Name:{" "}
@@ -98,10 +98,12 @@ export default function AddressForm({ setShowForm }) {
             />
           </label>
           <hr />
+          <div className="address-form-btn-group">
+            <button onClick={() => handleSave()}>Save</button>
+            <button onClick={() => setShowForm(false)}>Cancel</button>
+          </div>
         </div>
-        <button onClick={() => handleSave()}>Save</button>
-        <button onClick={() => setShowForm(false)}>Cancel</button>
-      </div>
+      </form>
     </div>
   );
 }
