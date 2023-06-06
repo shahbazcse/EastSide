@@ -29,10 +29,10 @@ export default function Cart() {
         <div className="card">
           <h3>CART PRICE DETAILS</h3>
           <hr />
-          {cart.map(({ id, name, units, price }) => (
+          {cart.map(({ id, title, units, price }) => (
             <p key={id}>
               <span>
-                {name} ({units}) Rs.{price}
+                {title} ({units}) Rs.{price}
               </span>
             </p>
           ))}

@@ -54,8 +54,8 @@ export default function FilterBar() {
         </strong>
         <label>
           <input
-            checked={state.categories.includes("men's clothing")}
-            value="men's clothing"
+            checked={state.categories.includes("Men's Clothing")}
+            value="Men's Clothing"
             onChange={(e) =>
               dispatch({
                 type: "setCategories",
@@ -69,8 +69,23 @@ export default function FilterBar() {
         </label>
         <label>
           <input
-            checked={state.categories.includes("jewelery")}
-            value="jewelery"
+            checked={state.categories.includes("Women's Clothing")}
+            value="Women's Clothing"
+            onChange={(e) =>
+              dispatch({
+                type: "setCategories",
+                payload: e.target.value,
+                checked: e.target.checked,
+              })
+            }
+            type="checkbox"
+          />{" "}
+          Women
+        </label>
+        <label>
+          <input
+            checked={state.categories.includes("Jewellery")}
+            value="Jewellery"
             onChange={(e) =>
               dispatch({
                 type: "setCategories",
@@ -84,8 +99,8 @@ export default function FilterBar() {
         </label>
         <label>
           <input
-            checked={state.categories.includes("electronics")}
-            value="electronics"
+            checked={state.categories.includes("Electronics")}
+            value="Electronics"
             onChange={(e) =>
               dispatch({
                 type: "setCategories",
@@ -97,27 +112,12 @@ export default function FilterBar() {
           />{" "}
           Electronics
         </label>
-        <label>
-          <input
-            checked={state.categories.includes("women's clothing")}
-            value="women's clothing"
-            onChange={(e) =>
-              dispatch({
-                type: "setCategories",
-                payload: e.target.value,
-                checked: e.target.checked,
-              })
-            }
-            type="checkbox"
-          />{" "}
-          Women
-        </label>
 
         <strong>
           <p> Ratings:</p>
         </strong>
         <label>
-          <p>{state.rating}⭐ and above</p>
+          <p>0+ 1+ 2+ 3+ 4+ 5+</p>
           <input
             onChange={(e) =>
               dispatch({ type: "setRating", payload: e.target.value })

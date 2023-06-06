@@ -19,6 +19,7 @@ export default function AddressList({ selectedAddress, setSelectedAddress }) {
       <strong>
         <p>Choose a delivery address</p>
       </strong>
+      {!addresses.length && <p>No address found</p>}
       {addresses.map((address) => (
         <AddressCard
           address={address}

@@ -13,9 +13,9 @@ export default function CheckoutDetails({
         <p style={{ textAlign: "left" }}>Name</p>
         <p style={{ textAlign: "right" }}>Quantity</p>
       </strong>
-      {cart.map(({ id, name, units }) => (
+      {cart.map(({ id, title, units }) => (
         <div key={id}>
-          <p style={{ textAlign: "left" }}>{name}</p>
+          <p style={{ textAlign: "left" }}>{title}</p>
           <p style={{ textAlign: "right" }}>{units}</p>
         </div>
       ))}
@@ -23,10 +23,9 @@ export default function CheckoutDetails({
       <strong>
         <p>Price Details</p>
       </strong>
-      <p>Price: {totalPrice}</p>
-      <p>Discount: </p>
+      <p>Price: Rs.{totalPrice}</p>
       <strong>
-        <p>Total Amount: {totalPrice}</p>
+        <p>Total Amount: Rs.{totalPrice}</p>
       </strong>
       <button
         onClick={() =>

@@ -108,7 +108,7 @@ export function AppProvider({ children }) {
       case "setDB":
         return {
           ...state,
-          products: action.payload,
+          products: [...action.payload],
         };
       case "addToCart":
         return addToCart(state, action);
@@ -153,21 +153,20 @@ export function AppProvider({ children }) {
 
   const getData = async () => {
     try {
-      const response = await fetch("/api/products");
-      const products = await response.json();
+      const res = await fetch("/api/products");
+      const { products } = await res.json();
+      // console.log(products);
 
       // const response = await fakeFetch("https://example.com/api/products");
-      // const db = response.data.products.map((p) => ({
-      //   ...p,
-      //   inCart: false,
-      //   inWishlist: false,
-      //   units: 1,
-      // }));
-      // dispatch({ type: "setDB", payload: db });
-
-      dispatch({ type: "setDB", payload: products.products });
+      const db = products.map((p) => ({
+        ...p,
+        inCart: false,
+        inWishlist: false,
+        units: 1,
+      }));
+      dispatch({ type: "setDB", payload: db });
     } catch (e) {
-      console.error(e);
+      console.log("Error: ", e);
     }
   };
 

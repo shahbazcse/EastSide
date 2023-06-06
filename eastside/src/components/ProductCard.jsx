@@ -3,19 +3,26 @@ import { AppContext } from "../contexts/AppContext";
 import { Link } from "react-router-dom";
 
 export default function ProductCard({ ...prod }) {
-  const { id, title, description, price, category, image, rating } = prod;
-
+  const {
+    id,
+    title,
+    price,
+    category,
+    image,
+    rating,
+    units,
+    inWishlist,
+    inCart,
+  } = prod;
+  
   const cartPage = window.location.pathname === "/cart";
   const wishlistPage = window.location.pathname === "/wishlist";
 
   const { dispatch } = useContext(AppContext);
 
-  const inWishlist = false;
-  const inCart = false;
-
   return (
     <div key={id} className="card">
-      <img src={image} alt="Book" />
+      <img src={image} alt="Sample" />
       <Link to={`/products/product/${id}`}>
         <strong>
           <p>{title}</p>
@@ -33,31 +40,31 @@ export default function ProductCard({ ...prod }) {
       {cartPage && (
         <span>
           <button
-          // onClick={() => dispatch({ type: "decreaseQuantity", payload: id })}
+            onClick={() => dispatch({ type: "decreaseQuantity", payload: id })}
           >
             -
           </button>
-          {/* <span> {units} </span> */}
+          <span> {units} </span>
           <button
-          // onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
+            onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
           >
             +
           </button>
         </span>
       )}
       <button
-      // onClick={() =>
-      //   !inWishlist
-      //     ? dispatch({ type: "addToWishlist", payload: prod })
-      //     : dispatch({ type: "removeFromWishlist", payload: prod })
-      // }
+        onClick={() =>
+          !inWishlist
+            ? dispatch({ type: "addToWishlist", payload: prod })
+            : dispatch({ type: "removeFromWishlist", payload: prod })
+        }
       >
         {!inWishlist ? "Add to Wishlist" : "Remove from wishlist"}
       </button>
       {!cartPage ? (
         !inCart ? (
           <button
-          // onClick={() => dispatch({ type: "addToCart", payload: prod })}
+            onClick={() => dispatch({ type: "addToCart", payload: prod })}
           >
             Add To Cart
           </button>
@@ -69,14 +76,14 @@ export default function ProductCard({ ...prod }) {
           </button>
         ) : (
           <button
-          // onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
+            onClick={() => dispatch({ type: "increaseQuantity", payload: id })}
           >
             Add again
           </button>
         )
       ) : (
         <button
-        // onClick={() => dispatch({ type: "removeFromCart", payload: prod })}
+          onClick={() => dispatch({ type: "removeFromCart", payload: prod })}
         >
           Remove From Cart
         </button>

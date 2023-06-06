@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AppProvider, AppContext } from "./contexts/AppContext";
 import { FilterProvider, FilterContext } from "./contexts/FilterContext";
-import { makeServer } from './server';
+import { makeServer } from "./server";
 
 export { AppContext, FilterContext };
 

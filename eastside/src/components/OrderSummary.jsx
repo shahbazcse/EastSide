@@ -45,10 +45,10 @@ export default function OrderSummary({
         <strong>
           <p>Price Details</p>
         </strong>
-        <p>Price: {totalPrice}</p>
+        <p>Price: Rs.{totalPrice}</p>
         <p>Discount: </p>
         <strong>
-          <p>Total Amount: {totalPrice}</p>
+          <p>Total Amount: Rs.{totalPrice}</p>
         </strong>
         <button>Pay Now</button>
         <button onClick={() => setShowCheckout(false)}>Cancel</button>

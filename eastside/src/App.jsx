@@ -8,7 +8,6 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import ProductDetails from "./pages/ProductDetails";
 import Checkout from "./pages/Checkout";
-import Mockman from "mockman-js";
 
 function App() {
   return (
@@ -21,9 +20,9 @@ function App() {
           Products
         </NavLink>
 
-        <NavLink className="navlink" to="/profile">
+        {/* <NavLink className="navlink" to="/profile">
           Profile
-        </NavLink>
+        </NavLink> */}
 
         <NavLink className="navlink" to="/wishlist">
           Wishlist
@@ -33,12 +32,11 @@ function App() {
           Cart
         </NavLink>
 
-        <NavLink className="navlink" to="/login">
+        {/* <NavLink className="navlink" to="/login">
           Login
-        </NavLink>
+        </NavLink> */}
       </div>
       <Routes>
-        <Route path="/mockman" element={<Mockman />} />
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route
