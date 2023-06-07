@@ -1,12 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { FilterContext } from "../contexts/FilterContext";
 
 export default function FilterBar() {
   const { state, dispatch } = useContext(FilterContext);
 
+  const [drawer, setDrawer] = useState(false);
+
+  useEffect(() => () => setDrawer(false), [setDrawer]);
+
   return (
-    <aside className="filter-container show-filter">
-      <div className="filter-head flex-gap">
+    <aside
+      className={`filter-container ${drawer ? "show-filter" : "hide-filter"}`}
+    >
+      <div className="filter-head">
         <button
           className="filter-clear-btn"
           onClick={() => dispatch({ type: "clearFilters" })}
