@@ -8,6 +8,8 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import ProductDetails from "./pages/ProductDetails";
 import Checkout from "./pages/Checkout";
+import { useContext } from "react";
+import { FilterContext } from "./contexts/FilterContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShirt,
@@ -18,6 +20,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
+  const { state, dispatch } = useContext(FilterContext);
+
   return (
     <div className="App">
       <header>
@@ -28,7 +32,14 @@ function App() {
             </div>
           </NavLink>
           <form className="search-input">
-            <input type="text" placeholder="Search for books" />
+            <input
+              value={state.query}
+              onChange={(e) =>
+                dispatch({ type: "setQuery", payload: e.target.value })
+              }
+              placeholder="Search Products"
+              type="text"
+            />
             <button>
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>

@@ -15,18 +15,6 @@ export default function FilterBar() {
         </button>
       </div>
       <h4>Apply Filters:</h4>
-      {/* <strong>
-          <p>
-            <input
-              value={state.query}
-              onChange={(e) =>
-                dispatch({ type: "setQuery", payload: e.target.value })
-              }
-              placeholder="Search Products"
-              type="text"
-            />
-          </p>
-        </strong> */}
       <div className="filter-sort">
         <h4>Sort by Price:</h4>
         <div className="flex-gap">

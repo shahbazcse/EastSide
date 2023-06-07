@@ -7,7 +7,7 @@ export default function OrderSummary({
   const { name, street, city, state, zip, phone, country } = selectedAddress;
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center', marginTop: "5rem"}}>
+    <div style={{display: 'flex', justifyContent: 'center', margin: "2.5rem"}}>
       <div className="checkout-container__details">
         <h3>Order Summary</h3>
         <div className="flex-col-gap">

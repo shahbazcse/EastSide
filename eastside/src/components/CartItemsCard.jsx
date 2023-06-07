@@ -52,23 +52,6 @@ export default function CartItemsCard({ ...prod }) {
           </div>
 
           <div className="cart-product__qty">
-            {/* <button
-              className="cart-product__qty-btn"
-              disabled={units === 1 || btnDisabled}
-              onClick={() =>
-                updateQtyInCartHandler(id, "DECREMENT", qty)
-              }
-            >
-              -
-            </button>
-            <span className="cart-product__qty-value">{units}</span>
-            <button
-              className="cart-product__qty-btn"
-              disabled={btnDisabled}
-              onClick={() => updateQtyInCartHandler(id, "INCREMENT")}
-            >
-              +
-            </button> */}
             {cartPage && (
               <>
                 <button
@@ -93,22 +76,6 @@ export default function CartItemsCard({ ...prod }) {
           </div>
 
           <div className="cart-product__btn-group">
-            {/* <button
-              className="cart-product__btn remove-btn"
-              onClick={() => removeFromCartHandler(productId)}
-              disabled={btnDisabled}
-            >
-              Remove
-            </button>
-            <button
-              className={`cart-product__btn ${
-                !inWishlist ? "add-btn" : "disabled-btn"
-              }`}
-              onClick={() => addToWishlistHandler(product)}
-              disabled={inWishlist || btnDisabled}
-            >
-              {inWishlist ? "Already in Wishlist" : "Add to Wishlist"}
-            </button> */}
             <button
               className="product-card__btn `"
               onClick={() =>

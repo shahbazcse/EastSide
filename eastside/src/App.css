@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Montserrat:wght@400;700&family=Roboto&display=swap");
 :root {
-  --primary-color: #5644b0;
-  --accent-color: #ff6f61;
+  --primary-color: #cb997e;
+  --accent-color: #cb997e;
   --secondary-color: white;
   --text-color: white;
-  --btn-hover: #424242;
+  --btn-hover: #A5A58D;
   --btn-disable: #424242;
 }
 
@@ -50,7 +50,7 @@ nav a:active {
 }
 
 nav a:hover {
-  color: var(--accent-color);
+  color: var(--btn-disable);
 }
 
 a {
@@ -162,6 +162,12 @@ main.home {
   padding: 2rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   position: relative;
+  height: 50vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-image: url("https://cdn.wallpapersafari.com/36/5/iXTctJ.jpg");
 }
 
 .home-container__info {
@@ -712,6 +718,7 @@ input[type="range"] {
 
 .cart-product__image {
   height: 15rem;
+  width: 10rem;
   flex-shrink: 0;
   display: flex;
 }
@@ -831,7 +838,7 @@ input[type="range"] {
   font-size: 1.2rem;
   padding: 0.4rem 0;
   font-weight: bold;
-  background-color: #206698;
+  background-color: #91683C;
   color: white;
   transition: all 0.1s linear;
 }
@@ -839,7 +846,7 @@ input[type="range"] {
 .checkout-btn:hover,
 .place-order-btn:hover {
   cursor: pointer;
-  background-color: #3a8dc8;
+  background-color: #C19E77;
 }
 
 /* ------------AUTH PAGES----------------- */
@@ -1137,7 +1144,7 @@ input[type="range"] {
 
 .checkout-container__new-address:hover {
   cursor: pointer;
-  background-color: #206698;
+  background-color: #C19E77;
   color: white;
 }
 
