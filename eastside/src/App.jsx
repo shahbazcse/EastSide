@@ -15,7 +15,6 @@ import {
   faShirt,
   faHeartCirclePlus,
   faCartPlus,
-  faMagnifyingGlass,
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 
