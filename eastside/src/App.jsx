@@ -40,9 +40,6 @@ function App() {
               placeholder="Search Products"
               type="text"
             />
-            <button>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
           </form>
 
           <ul className="nav-links">

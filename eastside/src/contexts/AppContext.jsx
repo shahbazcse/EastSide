@@ -155,9 +155,6 @@ export function AppProvider({ children }) {
     try {
       const res = await fetch("/api/products");
       const { products } = await res.json();
-      // console.log(products);
-
-      // const response = await fakeFetch("https://example.com/api/products");
       const db = products.map((p) => ({
         ...p,
         inCart: false,
