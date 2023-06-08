@@ -1,4 +1,4 @@
-## EastSide Online Clothing Store
+## EastSide Online Store
 
 ### Features:
 
