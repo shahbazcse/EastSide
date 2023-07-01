@@ -16,10 +16,16 @@ import {
   faHeartCirclePlus,
   faCartPlus,
   faHouse,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Mockman from "mockman-js";
+import { AuthContext } from "./contexts/AuthContext";
+import Signup from "./pages/Signup";
 
 function App() {
+  const {
+    state: { token },
+  } = useContext(AuthContext);
   const { state, dispatch } = useContext(FilterContext);
 
   return (
@@ -49,12 +55,6 @@ function App() {
               </NavLink>
             </li>
 
-            {/* <li className="list">
-              <NavLink to="/profile">
-          Profile
-        </NavLink>
-            </li> */}
-
             <li className="list">
               <NavLink to="/wishlist">
                 <FontAwesomeIcon icon={faHeartCirclePlus} />
@@ -67,11 +67,19 @@ function App() {
               </NavLink>
             </li>
 
-            {/* <li className="list">
-              <NavLink to="/login">
-          Login
-        </NavLink>
-            </li> */}
+            {token ? (
+              <li className="list">
+                <NavLink to="/profile">
+                  <FontAwesomeIcon icon={faUser} />
+                </NavLink>
+              </li>
+            ) : (
+              <li className="list">
+                <NavLink to="/login">
+                  <FontAwesomeIcon icon={faUser} />
+                </NavLink>
+              </li>
+            )}
           </ul>
         </nav>
       </header>
@@ -87,6 +95,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/mockman" element={<Mockman />} />
       </Routes>
     </div>
