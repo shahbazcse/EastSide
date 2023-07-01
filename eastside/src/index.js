@@ -7,22 +7,23 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { AppProvider, AppContext } from "./contexts/AppContext";
 import { FilterProvider, FilterContext } from "./contexts/FilterContext";
 import { makeServer } from "./server";
+import { AuthProvider, AuthContext } from "./contexts/AuthContext";
 
-export { AppContext, FilterContext };
+export { AuthContext, AppContext, FilterContext };
 
 makeServer();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Router>
+  <Router>
+    <AuthProvider>
       <AppProvider>
         <FilterProvider>
           <App />
         </FilterProvider>
       </AppProvider>
-    </Router>
-  </React.StrictMode>
+    </AuthProvider>
+  </Router>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -17,6 +17,7 @@ import {
   faCartPlus,
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
+import Mockman from "mockman-js";
 
 function App() {
   const { state, dispatch } = useContext(FilterContext);
@@ -86,6 +87,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/mockman" element={<Mockman />} />
       </Routes>
     </div>
   );
