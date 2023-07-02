@@ -21,6 +21,7 @@ import {
 import Mockman from "mockman-js";
 import { AuthContext } from "./contexts/AuthContext";
 import Signup from "./pages/Signup";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
   const {
@@ -90,10 +91,38 @@ function App() {
           path="/products/product/:productId"
           element={<ProductDetails />}
         />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/wishlist" element={<WishList />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route
+          path="/profile"
+          element={
+            <RequireAuth>
+              <Profile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <RequireAuth>
+              <WishList />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <RequireAuth>
+              <Cart />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <RequireAuth>
+              <Checkout />
+            </RequireAuth>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/mockman" element={<Mockman />} />

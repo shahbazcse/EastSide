@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../services/AuthService";
 import { AuthContext } from "../contexts/AuthContext";
 
 export default function Login() {
+  const location = useLocation();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -14,7 +15,7 @@ export default function Login() {
     const response = await loginUser(formData);
     dispatch({ type: "setToken", payload: response.encodedToken });
     dispatch({ type: "setUser", payload: response.foundUser });
-    navigate("/");
+    navigate(location?.state?.from?.pathname || "/");
   };
 
   const handleGuestLogin = async () => {
@@ -24,7 +25,7 @@ export default function Login() {
     });
     dispatch({ type: "setToken", payload: response.encodedToken });
     dispatch({ type: "setUser", payload: response.foundUser });
-    navigate("/");
+    navigate(location?.state?.from?.pathname || "/");
   };
 
   return (
