@@ -12,6 +12,7 @@ export default function Profile() {
   const { firstName, lastName, email } = user;
 
   const handleLogout = () => {
+    localStorage.clear();
     dispatch({ type: "setToken", payload: null });
     dispatch({ type: "setUser", payload: null });
     navigate("/login");

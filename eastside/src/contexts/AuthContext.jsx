@@ -1,11 +1,13 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  const session = JSON.parse(localStorage.getItem("session"));
+
   const initialState = {
-    token: null,
-    user: null,
+    token: session?.encodedToken,
+    user: session?.user,
   };
 
   const reducerFn = (state, action) => {

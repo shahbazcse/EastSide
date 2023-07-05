@@ -8,7 +8,7 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import ProductDetails from "./pages/ProductDetails";
 import Checkout from "./pages/Checkout";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FilterContext } from "./contexts/FilterContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,14 +19,14 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Mockman from "mockman-js";
-import { AuthContext } from "./contexts/AuthContext";
 import Signup from "./pages/Signup";
 import RequireAuth from "./components/RequireAuth";
-
+import { AuthContext } from "./contexts/AuthContext";
 function App() {
   const {
     state: { token },
   } = useContext(AuthContext);
+
   const { state, dispatch } = useContext(FilterContext);
 
   return (
