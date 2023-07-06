@@ -19,7 +19,7 @@ export default function Signup() {
   const handleSignup = async () => {
     const response = await signupUser(formData);
     dispatch({ type: "setToken", payload: response.encodedToken });
-    dispatch({ type: "setUser", payload: response.foundUser });
+    dispatch({ type: "setUser", payload: response.createdUser });
     navigate("/");
   };
 

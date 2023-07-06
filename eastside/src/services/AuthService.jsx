@@ -17,7 +17,7 @@ export const signupUser = async (formData) => {
   localStorage.setItem(
     "session",
     JSON.stringify({
-      user: response.data.foundUser,
+      user: response.data.createdUser,
       encodedToken: response.data.encodedToken,
     })
   );
