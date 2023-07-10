@@ -1,18 +1,17 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
+import { getProduct } from "../services/UserService";
 
 export default function ProductDetails() {
   const { productId } = useParams();
 
-  const { state } = useContext(AppContext);
+  const [prod, setProduct] = useState({});
 
-  const allProducts = [...state.products];
-
-  const prod = allProducts.find((p) => p.id === productId);
+  const { dispatch } = useContext(AppContext);
 
   const {
-    id,
+    _id,
     title,
     price,
     category,
@@ -26,7 +25,12 @@ export default function ProductDetails() {
   const cartPage = window.location.pathname === "/cart";
   const wishlistPage = window.location.pathname === "/wishlist";
 
-  const { dispatch } = useContext(AppContext);
+  useEffect(() => {
+    (async () => {
+      const prod = await getProduct(productId);
+      setProduct(prod);
+    })();
+  }, []);
 
   return (
     <main className="product-detail-page">
@@ -39,7 +43,7 @@ export default function ProductDetails() {
             <div className="product-detail__info-header">
               <h2 className="product-detail__info-header_name">{title}</h2>
               <span className="product-detail__info-header-rating">
-                {rating.rate.toFixed(1)}
+                {rating?.rate.toFixed(1)}
                 <div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +76,7 @@ export default function ProductDetails() {
                 <p>
                   <b>Available In Stock :</b>
                 </p>
-                <p>{rating.count}</p>
+                <p>{rating?.count}</p>
               </div>
             </div>
           </div>
@@ -81,7 +85,7 @@ export default function ProductDetails() {
               <span>
                 <button
                   onClick={() =>
-                    dispatch({ type: "decreaseQuantity", payload: id })
+                    dispatch({ type: "decreaseQuantity", payload: _id })
                   }
                 >
                   -
@@ -89,7 +93,7 @@ export default function ProductDetails() {
                 <span> {units} </span>
                 <button
                   onClick={() =>
-                    dispatch({ type: "increaseQuantity", payload: id })
+                    dispatch({ type: "increaseQuantity", payload: _id })
                   }
                 >
                   +
@@ -127,7 +131,7 @@ export default function ProductDetails() {
                 <button
                   className="product-card__btn in-cart-btn"
                   onClick={() =>
-                    dispatch({ type: "increaseQuantity", payload: id })
+                    dispatch({ type: "increaseQuantity", payload: _id })
                   }
                 >
                   Add again

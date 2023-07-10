@@ -1,13 +1,25 @@
-import { useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
+import { useContext, useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
+import { AuthContext } from "../contexts/AuthContext";
+import { getWishlist } from "../services/UserService";
+import { AppContext } from "../contexts/AppContext";
 
 export default function WishList() {
   const {
-    state: { products },
+    state: { token },
+  } = useContext(AuthContext);
+
+  const {
+    state: { wishlist },
+    dispatch,
   } = useContext(AppContext);
 
-  const wishlist = products.filter((p) => p.inWishlist);
+  useEffect(() => {
+    (async () => {
+      const response = await getWishlist(token);
+      dispatch({ type: "updateWishlist", payload: response });
+    })();
+  }, []);
 
   return (
     <main className="wishlist-page">
@@ -17,7 +29,9 @@ export default function WishList() {
       ) : (
         <div className="wishlist-container">
           {wishlist.map((prod) => {
-            return <ProductCard {...prod} key={prod.id} />;
+            return (
+              <ProductCard {...prod} key={prod.id} />
+            );
           })}
         </div>
       )}

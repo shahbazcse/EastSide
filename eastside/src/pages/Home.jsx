@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FilterContext } from "../contexts/FilterContext";
+import { getAllCategories } from "../services/UserService";
 
 export default function Home() {
   const { setCategoryFromHome } = useContext(FilterContext);
@@ -8,14 +9,13 @@ export default function Home() {
   const [allCategories, setAllCategories] = useState([]);
 
   const getCategories = async () => {
-    const response = await fetch("/api/categories");
-    const { categories } = await response.json();
-    setAllCategories(await categories);
+    const categories = await getAllCategories();
+    setAllCategories(categories);
   };
 
   useEffect(() => {
     getCategories();
-  });
+  }, []);
 
   return (
     <div>

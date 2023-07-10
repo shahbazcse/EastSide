@@ -1,4 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
+import { getAllProducts } from "../services/UserService";
 
 export const AppContext = createContext();
 
@@ -23,19 +24,11 @@ export function AppProvider({ children }) {
     };
   };
 
-  const addToWishList = (state, action) => {
-    const foundInWishlist = state.products.find(
-      (p) => p.id === action.payload.id && p.inWishlist
-    );
-    const modified = state.products.map((p) =>
-      p.id === action.payload.id ? { ...p, inWishlist: true } : { ...p }
-    );
-    if (!foundInWishlist) {
-      return {
-        ...state,
-        products: [...modified],
-      };
-    }
+  const updateWishlist = (state, action) => {
+    return {
+      ...state,
+      wishlist: action.payload,
+    };
   };
 
   const removeFromWishList = (state, action) => {
@@ -108,16 +101,14 @@ export function AppProvider({ children }) {
       case "setDB":
         return {
           ...state,
-          products: [...action.payload],
+          products: action.payload,
         };
       case "addToCart":
         return addToCart(state, action);
       case "removeFromCart":
         return removeFromCart(state, action);
-      case "addToWishlist":
-        return addToWishList(state, action);
-      case "removeFromWishlist":
-        return removeFromWishList(state, action);
+      case "updateWishlist":
+        return updateWishlist(state, action);
       case "increaseQuantity":
         return increaseQuantity(state, action);
       case "decreaseQuantity":
@@ -135,6 +126,8 @@ export function AppProvider({ children }) {
 
   const initialState = {
     products: [],
+    cart: [],
+    wishlist: [],
     addresses: [
       {
         aId: 1,
@@ -151,24 +144,11 @@ export function AppProvider({ children }) {
 
   const [state, dispatch] = useReducer(reducerFn, initialState);
 
-  const getData = async () => {
-    try {
-      const res = await fetch("/api/products");
-      const { products } = await res.json();
-      const db = products.map((p) => ({
-        ...p,
-        inCart: false,
-        inWishlist: false,
-        units: 1,
-      }));
-      dispatch({ type: "setDB", payload: db });
-    } catch (e) {
-      console.log("Error: ", e);
-    }
-  };
-
   useEffect(() => {
-    getData();
+    (async () => {
+      const products = await getAllProducts();
+      dispatch({ type: "setDB", payload: products });
+    })();
   }, []);
 
   return (
