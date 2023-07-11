@@ -40,6 +40,8 @@ function App() {
 
   const { state, dispatch } = useContext(FilterContext);
 
+  // Revamp CSS
+
   return (
     <div className="App">
       <ToastContainer autoClose={2000} theme="dark" />
