@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Profile from "./pages/Profile";
@@ -24,6 +24,8 @@ import RequireAuth from "./components/RequireAuth";
 import { AuthContext } from "./contexts/AuthContext";
 import AddressPage from "./pages/AddressPage";
 function App() {
+  const navigate = useNavigate();
+
   const {
     state: { token },
   } = useContext(AuthContext);
@@ -42,9 +44,10 @@ function App() {
           <form className="search-input">
             <input
               value={state.query}
-              onChange={(e) =>
-                dispatch({ type: "setQuery", payload: e.target.value })
-              }
+              onChange={(e) => {
+                navigate("/products");
+                dispatch({ type: "setQuery", payload: e.target.value });
+              }}
               placeholder="Search Products"
               type="text"
             />
