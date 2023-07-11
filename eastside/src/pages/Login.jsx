@@ -10,7 +10,7 @@ export default function Login() {
 
   const [loading, setLoading] = useState(false);
 
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: null, password: null });
 
   const { dispatch } = useContext(AuthContext);
 
@@ -84,7 +84,7 @@ export default function Login() {
           className="p-2 border-black border"
         />
         <div
-          onClick={handleLogin}
+          onClick={() => formData.email && formData.password && handleLogin()}
           className="bg-white hover:bg-slate-300 border-2 border-black mt-3 px-4 py-1 rounded-lg cursor-pointer"
         >
           Login
