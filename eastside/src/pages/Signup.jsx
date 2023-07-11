@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../services/AuthService";
 import { AuthContext } from "../contexts/AuthContext";
+import { AiFillEye } from "react-icons/ai";
+import { AiFillEyeInvisible } from "react-icons/ai";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -13,6 +15,8 @@ export default function Signup() {
     password: "",
     confirmPassword: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const { dispatch } = useContext(AuthContext);
 
@@ -49,22 +53,48 @@ export default function Signup() {
         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         className="p-2 border-black border"
       />
-      <input
-        type="password"
-        placeholder="Password"
-        value={formData.password}
-        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-        className="p-2 border-black border"
-      />
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        value={formData.confirmPassword}
-        onChange={(e) =>
-          setFormData({ ...formData, confirmPassword: e.target.value })
-        }
-        className="p-2 border-black border"
-      />
+      <div className="border-black border bg-white flex items-center">
+        <input
+          type={showPassword ? "text" : "password"}
+          placeholder="Password"
+          value={formData.password}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
+          className="focus:outline-none p-2 w-52"
+        />
+        <div
+          onClick={() => setShowPassword(!showPassword)}
+          className="cursor-pointer px-1 rounded"
+        >
+          {!showPassword ? (
+            <AiFillEye fontSize="large" />
+          ) : (
+            <AiFillEyeInvisible fontSize="large" />
+          )}
+        </div>
+      </div>
+      <div className="border-black border bg-white flex items-center">
+        <input
+          type={showPassword ? "text" : "password"}
+          placeholder="Confirm Password"
+          value={formData.confirmPassword}
+          onChange={(e) =>
+            setFormData({ ...formData, confirmPassword: e.target.value })
+          }
+          className="focus:outline-none p-2 w-52"
+        />
+        <div
+          onClick={() => setShowPassword(!showPassword)}
+          className="cursor-pointer px-1 rounded"
+        >
+          {!showPassword ? (
+            <AiFillEye fontSize="large" />
+          ) : (
+            <AiFillEyeInvisible fontSize="large" />
+          )}
+        </div>
+      </div>
       <div
         onClick={handleSignup}
         className="bg-white hover:bg-slate-300 border-2 border-black mt-3 px-4 py-1 rounded-lg cursor-pointer"
