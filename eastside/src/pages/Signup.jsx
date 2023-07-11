@@ -5,6 +5,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { AiFillEye } from "react-icons/ai";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { Oval } from "react-loader-spinner";
+import { toast } from "react-toastify";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -31,6 +32,9 @@ export default function Signup() {
     setLoading(true);
     setTimeout(() => {
       navigate("/");
+      toast.success("Signup Successful", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }, 1500);
   };
 

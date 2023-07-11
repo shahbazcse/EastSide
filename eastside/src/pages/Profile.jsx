@@ -3,6 +3,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 import { Oval } from "react-loader-spinner";
+import { toast } from "react-toastify";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -27,6 +28,9 @@ export default function Profile() {
       AppDispatch({ type: "updateCart", payload: [] });
       AppDispatch({ type: "updateWishlist", payload: [] });
       navigate("/login");
+      toast.success("Logout Successful", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }, 1500);
   };
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const getAllCategories = async () => {
   const response = await axios.get("/api/categories");
@@ -36,6 +37,7 @@ export const addToWishlist = async (encodedToken, product) => {
       },
     }
   );
+  toast.success("Added To Wishlist", { position: toast.POSITION.BOTTOM_RIGHT });
   return response.data.wishlist;
 };
 
@@ -44,6 +46,9 @@ export const deleteFromWishlist = async (encodedToken, productId) => {
     headers: {
       authorization: encodedToken,
     },
+  });
+  toast.success("Removed From Wishlist", {
+    position: toast.POSITION.BOTTOM_RIGHT,
   });
   return response.data.wishlist;
 };
@@ -69,6 +74,7 @@ export const addToCart = async (encodedToken, product) => {
       },
     }
   );
+  toast.success("Added To Cart", { position: toast.POSITION.BOTTOM_RIGHT });
   return response.data.cart;
 };
 
@@ -78,6 +84,7 @@ export const deleteFromCart = async (encodedToken, productId) => {
       authorization: encodedToken,
     },
   });
+  toast.success("Removed From Cart", { position: toast.POSITION.BOTTOM_RIGHT });
   return response.data.cart;
 };
 
@@ -95,5 +102,12 @@ export const updateQuantity = async (encodedToken, updateType, productId) => {
       },
     }
   );
+  updateType === "increment"
+    ? toast.success("Quantity Increased", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
+    : toast.success("Quantity Decreased", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
   return response.data.cart;
 };

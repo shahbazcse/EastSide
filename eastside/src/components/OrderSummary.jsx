@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export default function OrderSummary({
   cart,
   totalPrice,
@@ -60,7 +62,16 @@ export default function OrderSummary({
             </div>
           </div>
         </div>
-        <button className="place-order-btn">Pay Now</button>
+        <button
+          onClick={() => {
+            toast.info("Feature Coming Soon...", {
+              position: toast.POSITION.BOTTOM_RIGHT,
+            });
+          }}
+          className="place-order-btn"
+        >
+          Pay Now
+        </button>
         <button
           className="place-order-btn"
           onClick={() => setShowCheckout(false)}

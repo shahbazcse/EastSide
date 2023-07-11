@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export default function CheckoutDetails({
   cart,
   totalPrice,
@@ -36,7 +38,9 @@ export default function CheckoutDetails({
         onClick={() =>
           selectedAddress
             ? setShowCheckout(true)
-            : alert("Please select an address to proceed")
+            : toast.warning("Select an address to proceed", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+              })
         }
       >
         Place Order

@@ -1,5 +1,10 @@
 import "./App.css";
-import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  NavLink,
+  useNavigate,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Profile from "./pages/Profile";
@@ -8,7 +13,7 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import ProductDetails from "./pages/ProductDetails";
 import Checkout from "./pages/Checkout";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { FilterContext } from "./contexts/FilterContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,6 +28,9 @@ import Signup from "./pages/Signup";
 import RequireAuth from "./components/RequireAuth";
 import { AuthContext } from "./contexts/AuthContext";
 import AddressPage from "./pages/AddressPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const navigate = useNavigate();
 
@@ -34,6 +42,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer autoClose={2000} theme="dark" />
       <header>
         <nav>
           <NavLink to="/">

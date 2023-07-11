@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../services/AuthService";
 import { AuthContext } from "../contexts/AuthContext";
 import { Oval } from "react-loader-spinner";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const location = useLocation();
@@ -22,6 +23,7 @@ export default function Login() {
     setLoading(true);
     setTimeout(() => {
       navigate(location?.state?.from?.pathname || "/");
+      toast.success("Login Successful", { position: toast.POSITION.BOTTOM_RIGHT });
     }, 1500);
   };
 
@@ -42,6 +44,7 @@ export default function Login() {
 
     setTimeout(() => {
       navigate(location?.state?.from?.pathname || "/");
+      toast.success("Login Successful", { position: toast.POSITION.BOTTOM_RIGHT });
     }, 1500);
   };
 
