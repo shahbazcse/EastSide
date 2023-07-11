@@ -40,7 +40,7 @@ function App() {
 
   const { state, dispatch } = useContext(FilterContext);
 
-  // Revamp CSS
+  // Revamp CSS for V2.0
 
   return (
     <div className="App">
