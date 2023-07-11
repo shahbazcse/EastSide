@@ -2,10 +2,16 @@ import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
-import { addToWishlist, deleteFromWishlist } from "../services/UserService";
+import {
+  addToCart,
+  addToWishlist,
+  deleteFromCart,
+  deleteFromWishlist,
+  updateQuantity,
+} from "../services/UserService";
 
 export default function ProductCard({ ...prod }) {
-  const { _id, title, price, category, image, rating, units, inCart } = prod;
+  const { _id, title, price, category, image, rating, units } = prod;
 
   const navigate = useNavigate();
   const cartPage = window.location.pathname === "/cart";
@@ -16,12 +22,27 @@ export default function ProductCard({ ...prod }) {
   } = useContext(AuthContext);
 
   const {
-    state: { wishlist },
+    state: { cart, wishlist },
     dispatch,
   } = useContext(AppContext);
 
-  const addToCart = () => {
-    token ? dispatch({ type: "addToCart", payload: prod }) : navigate("/login");
+  const handleAddCart = async () => {
+    if (token) {
+      const cart = await addToCart(token, prod);
+      dispatch({ type: "updateCart", payload: cart });
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const handleRemoveCart = async () => {
+    const cart = await deleteFromCart(token, _id);
+    dispatch({ type: "updateCart", payload: cart });
+  };
+
+  const handleUpdateQuantity = async () => {
+    const cart = await updateQuantity(token, "increment", _id);
+    dispatch({ type: "updateCart", payload: cart });
   };
 
   const handleAddWishlist = async () => {
@@ -38,6 +59,7 @@ export default function ProductCard({ ...prod }) {
     dispatch({ type: "updateWishlist", payload: wishlist });
   };
 
+  const inCart = cart.find(({ _id }) => _id === prod._id);
   const inWishlist = wishlist.find(({ _id }) => _id === prod._id);
 
   return (
@@ -92,7 +114,7 @@ export default function ProductCard({ ...prod }) {
       </button>
       {!cartPage ? (
         !inCart ? (
-          <button className="product-card__btn" onClick={addToCart}>
+          <button className="product-card__btn" onClick={handleAddCart}>
             Add To Cart
           </button>
         ) : !wishlistPage ? (
@@ -104,16 +126,13 @@ export default function ProductCard({ ...prod }) {
         ) : (
           <button
             className="product-card__btn in-cart-btn"
-            onClick={() => dispatch({ type: "increaseQuantity", payload: _id })}
+            onClick={handleUpdateQuantity}
           >
             Add again
           </button>
         )
       ) : (
-        <button
-          className="product-card__btn"
-          onClick={() => dispatch({ type: "removeFromCart", payload: prod })}
-        >
+        <button className="product-card__btn" onClick={handleRemoveCart}>
           Remove From Cart
         </button>
       )}

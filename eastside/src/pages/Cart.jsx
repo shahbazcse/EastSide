@@ -1,23 +1,34 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../contexts/AppContext";
 import CartItemsCard from "../components/CartItemsCard";
+import { getCart } from "../services/UserService";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function Cart() {
   const {
-    state: { products },
+    state: { cart },
+    dispatch,
   } = useContext(AppContext);
 
-  const cart = products.filter((p) => p.inCart);
+  const {
+    state: { token },
+  } = useContext(AuthContext);
 
-  const totalPrice = cart.reduce(
-    (acc, { price, units }) => acc + price * units,
-    0
-  );
+  const totalPrice = cart.reduce((acc, { price, qty }) => acc + price * qty, 0);
 
-  const totalItems = cart.reduce((acc, { units }) => acc + units, 0);
+  const totalItems = cart.reduce((acc, { qty }) => acc + qty, 0);
 
   const itemCount = cart.length > 0;
+
+  useEffect(() => {
+    (async () => {
+      const cart = await getCart(token);
+      dispatch({ type: "updateCart", payload: cart });
+    })();
+  }, []);
+
+  console.log(cart);
 
   return (
     <main className="cart-page">

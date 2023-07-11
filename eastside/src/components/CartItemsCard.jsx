@@ -1,26 +1,56 @@
 import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import {
+  addToWishlist,
+  deleteFromCart,
+  deleteFromWishlist,
+  updateQuantity,
+} from "../services/UserService";
 
 export default function CartItemsCard({ ...prod }) {
-  const {
-    id,
-    title,
-    price,
-    image,
-    rating,
-    units,
-    inWishlist,
-    inCart,
-  } = prod;
+  const { _id, title, price, qty, image, rating } = prod;
 
   const cartPage = window.location.pathname === "/cart";
   const wishlistPage = window.location.pathname === "/wishlist";
 
-  const { dispatch } = useContext(AppContext);
+  const {
+    state: { cart, wishlist },
+    dispatch,
+  } = useContext(AppContext);
+
+  const {
+    state: { token },
+  } = useContext(AuthContext);
+
+  const handleRemoveCart = async () => {
+    const cart = await deleteFromCart(token, _id);
+    dispatch({ type: "updateCart", payload: cart });
+  };
+
+  const handleAddWishlist = async () => {
+    if (token) {
+      const wishlist = await addToWishlist(token, prod);
+      dispatch({ type: "updateWishlist", payload: wishlist });
+    }
+  };
+
+  const handleRemoveWishlist = async () => {
+    const wishlist = await deleteFromWishlist(token, _id);
+    dispatch({ type: "updateWishlist", payload: wishlist });
+  };
+
+  const handleUpdateQuantity = async (type) => {
+    const cart = await updateQuantity(token, type, _id);
+    dispatch({ type: "updateCart", payload: cart });
+  };
+
+  const inCart = cart.find(({ _id }) => _id === prod._id);
+  const inWishlist = wishlist.find(({ _id }) => _id === prod._id);
 
   return (
-    <div className="cart-product-card" key={id}>
+    <div className="cart-product-card" key={_id}>
       <div className="cart-product__details">
         <div className="cart-product__image">
           <img src={image} alt="product" />
@@ -47,7 +77,9 @@ export default function CartItemsCard({ ...prod }) {
           </div>
           <div className="product-detail__info-price">
             <div className="product-detail__info-price-main">
-              <p className="product-detail__info-price__final">Price: ₹{price}</p>
+              <p className="product-detail__info-price__final">
+                Price: ₹{price}
+              </p>
             </div>
           </div>
 
@@ -55,19 +87,16 @@ export default function CartItemsCard({ ...prod }) {
             {cartPage && (
               <>
                 <button
+                  disabled={qty === 1}
                   className="cart-product__qty-btn"
-                  onClick={() =>
-                    dispatch({ type: "decreaseQuantity", payload: id })
-                  }
+                  onClick={() => handleUpdateQuantity("decrement")}
                 >
                   -
                 </button>
-                <span className="cart-product__qty-value">{units}</span>
+                <span className="cart-product__qty-value">{qty}</span>
                 <button
                   className="cart-product__qty-btn"
-                  onClick={() =>
-                    dispatch({ type: "increaseQuantity", payload: id })
-                  }
+                  onClick={() => handleUpdateQuantity("increment")}
                 >
                   +
                 </button>
@@ -79,9 +108,7 @@ export default function CartItemsCard({ ...prod }) {
             <button
               className="product-card__btn `"
               onClick={() =>
-                !inWishlist
-                  ? dispatch({ type: "addToWishlist", payload: prod })
-                  : dispatch({ type: "removeFromWishlist", payload: prod })
+                !inWishlist ? handleAddWishlist() : handleRemoveWishlist()
               }
             >
               {!inWishlist ? "Add to Wishlist" : "Remove from wishlist"}
@@ -107,19 +134,14 @@ export default function CartItemsCard({ ...prod }) {
                 <button
                   className="product-card__btn in-cart-btn"
                   onClick={() =>
-                    dispatch({ type: "increaseQuantity", payload: id })
+                    dispatch({ type: "increaseQuantity", payload: _id })
                   }
                 >
                   Add again
                 </button>
               )
             ) : (
-              <button
-                className="product-card__btn"
-                onClick={() =>
-                  dispatch({ type: "removeFromCart", payload: prod })
-                }
-              >
+              <button className="product-card__btn" onClick={handleRemoveCart}>
                 Remove
               </button>
             )}

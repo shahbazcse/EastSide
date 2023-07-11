@@ -4,13 +4,10 @@ import { getAllProducts } from "../services/UserService";
 export const AppContext = createContext();
 
 export function AppProvider({ children }) {
-  const addToCart = (state, action) => {
-    const modified = state.products.map((p) =>
-      p.id === action.payload.id ? { ...p, inCart: true } : { ...p }
-    );
+  const updateCart = (state, action) => {
     return {
       ...state,
-      products: [...modified],
+      cart: action.payload,
     };
   };
 
@@ -29,21 +26,6 @@ export function AppProvider({ children }) {
       ...state,
       wishlist: action.payload,
     };
-  };
-
-  const removeFromWishList = (state, action) => {
-    const foundInWishlist = state.products.find(
-      (p) => p.id === action.payload.id && p.inWishlist
-    );
-    const modified = state.products.map((p) =>
-      p.id === action.payload.id ? { ...p, inWishlist: false } : { ...p }
-    );
-    if (foundInWishlist) {
-      return {
-        ...state,
-        products: [...modified],
-      };
-    }
   };
 
   const increaseQuantity = (state, action) => {
@@ -103,8 +85,8 @@ export function AppProvider({ children }) {
           ...state,
           products: action.payload,
         };
-      case "addToCart":
-        return addToCart(state, action);
+      case "updateCart":
+        return updateCart(state, action);
       case "removeFromCart":
         return removeFromCart(state, action);
       case "updateWishlist":
