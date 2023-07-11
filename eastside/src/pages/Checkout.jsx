@@ -6,15 +6,10 @@ import OrderSummary from "../components/OrderSummary";
 
 export default function Checkout() {
   const {
-    state: { products },
+    state: { cart },
   } = useContext(AppContext);
 
-  const cart = products.filter((p) => p.inCart);
-
-  const totalPrice = cart.reduce(
-    (acc, { price, units }) => acc + price * units,
-    0
-  );
+  const totalPrice = cart.reduce((acc, { price, qty }) => acc + price * qty, 0);
 
   const [showCheckout, setShowCheckout] = useState(false);
 

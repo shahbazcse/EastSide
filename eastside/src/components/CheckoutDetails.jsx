@@ -13,10 +13,10 @@ export default function CheckoutDetails({
           <p>Quantity</p>
         </div>
         <div className="flex-items-col">
-          {cart.map(({ id, title, units }) => (
+          {cart.map(({ id, title, qty }) => (
             <div key={id}>
               <p style={{ textAlign: "left" }}>{title}</p>
-              <p style={{ textAlign: "right" }}>{units}</p>
+              <p style={{ textAlign: "right" }}>{qty}</p>
             </div>
           ))}
         </div>

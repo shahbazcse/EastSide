@@ -14,10 +14,16 @@ export default function AddressList({ selectedAddress, setSelectedAddress }) {
     setSelectedAddress(addresses.find((address) => address.aId === aId));
   };
 
+  const addressPage = window.location.pathname === "/address";
+
   return (
     <div className="checkout-container__address">
       <strong>
-        <p>Choose a delivery address</p>
+        {addressPage ? (
+          <p>Add a new address</p>
+        ) : (
+          <p>Choose a delivery address</p>
+        )}
       </strong>
       {!addresses.length && <p>No address found</p>}
       {addresses.map((address) => (

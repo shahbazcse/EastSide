@@ -7,7 +7,9 @@ export default function OrderSummary({
   const { name, street, city, state, zip, phone, country } = selectedAddress;
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center', margin: "2.5rem"}}>
+    <div
+      style={{ display: "flex", justifyContent: "center", margin: "2.5rem" }}
+    >
       <div className="checkout-container__details">
         <h3>Order Summary</h3>
         <div className="flex-col-gap">
@@ -41,6 +43,12 @@ export default function OrderSummary({
           <p>
             <strong>{phone}</strong>
           </p>
+          <button
+            onClick={() => setShowCheckout(false)}
+            className="bg-slate-500 text-white p-1 mt-2 rounded"
+          >
+            Change address
+          </button>
         </div>
         <hr />
         <h3>Price Details</h3>

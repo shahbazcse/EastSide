@@ -22,6 +22,7 @@ import Mockman from "mockman-js";
 import Signup from "./pages/Signup";
 import RequireAuth from "./components/RequireAuth";
 import { AuthContext } from "./contexts/AuthContext";
+import AddressPage from "./pages/AddressPage";
 function App() {
   const {
     state: { token },
@@ -96,6 +97,14 @@ function App() {
           element={
             <RequireAuth>
               <Profile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/address"
+          element={
+            <RequireAuth>
+              <AddressPage />
             </RequireAuth>
           }
         />
