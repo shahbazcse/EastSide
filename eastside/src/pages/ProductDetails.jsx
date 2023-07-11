@@ -1,29 +1,57 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
-import { getProduct } from "../services/UserService";
+import {
+  addToCart,
+  addToWishlist,
+  deleteFromWishlist,
+  getProduct,
+} from "../services/UserService";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function ProductDetails() {
   const { productId } = useParams();
-
-  const [prod, setProduct] = useState({});
-
-  const { dispatch } = useContext(AppContext);
-
-  const {
-    _id,
-    title,
-    price,
-    category,
-    image,
-    rating,
-    units,
-    inWishlist,
-    inCart,
-  } = prod;
-
+  const navigate = useNavigate();
   const cartPage = window.location.pathname === "/cart";
   const wishlistPage = window.location.pathname === "/wishlist";
+
+  const [prod, setProduct] = useState({});
+  const { _id, title, price, category, image, rating, qty } = prod;
+
+  const {
+    state: { token },
+  } = useContext(AuthContext);
+
+  const {
+    state: { cart, wishlist },
+    dispatch,
+  } = useContext(AppContext);
+
+  const handleAddCart = async () => {
+    if (token) {
+      const cart = await addToCart(token, prod);
+      dispatch({ type: "updateCart", payload: cart });
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const handleAddWishlist = async () => {
+    if (token) {
+      const wishlist = await addToWishlist(token, prod);
+      dispatch({ type: "updateWishlist", payload: wishlist });
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const handleRemoveWishlist = async () => {
+    const wishlist = await deleteFromWishlist(token, _id);
+    dispatch({ type: "updateWishlist", payload: wishlist });
+  };
+
+  const inCart = cart.find(({ _id }) => _id === prod._id);
+  const inWishlist = wishlist.find(({ _id }) => _id === prod._id);
 
   useEffect(() => {
     (async () => {
@@ -90,7 +118,7 @@ export default function ProductDetails() {
                 >
                   -
                 </button>
-                <span> {units} </span>
+                <span> {qty} </span>
                 <button
                   onClick={() =>
                     dispatch({ type: "increaseQuantity", payload: _id })
@@ -103,19 +131,14 @@ export default function ProductDetails() {
             <button
               className="product-card__btn `"
               onClick={() =>
-                !inWishlist
-                  ? dispatch({ type: "addToWishlist", payload: prod })
-                  : dispatch({ type: "removeFromWishlist", payload: prod })
+                !inWishlist ? handleAddWishlist() : handleRemoveWishlist()
               }
             >
               {!inWishlist ? "Add to Wishlist" : "Remove from wishlist"}
             </button>
             {!cartPage ? (
               !inCart ? (
-                <button
-                  className="product-card__btn"
-                  onClick={() => dispatch({ type: "addToCart", payload: prod })}
-                >
+                <button className="product-card__btn" onClick={handleAddCart}>
                   Add To Cart
                 </button>
               ) : !wishlistPage ? (
