@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../contexts/AppContext";
 
 export default function Profile() {
   const navigate = useNavigate();
+
+  const { dispatch: AppDispatch } = useContext(AppContext);
 
   const {
     state: { user },
@@ -15,6 +18,8 @@ export default function Profile() {
     localStorage.clear();
     dispatch({ type: "setToken", payload: null });
     dispatch({ type: "setUser", payload: null });
+    AppDispatch({ type: "updateCart", payload: [] });
+    AppDispatch({ type: "updateWishlist", payload: [] });
     navigate("/login");
   };
 
