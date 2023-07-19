@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
 import { Link } from "react-router-dom";
+import { AppContext } from "../contexts/AppContext";
 import { AuthContext } from "../contexts/AuthContext";
 import {
   addToWishlist,

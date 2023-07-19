@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import EditingForm from "./EditingForm";
 import { AppContext } from "../contexts/AppContext";
+import EditingForm from "./EditingForm";
 
 export default function AddressCard({
   address,
