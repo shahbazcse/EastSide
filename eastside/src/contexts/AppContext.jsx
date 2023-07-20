@@ -11,44 +11,10 @@ export function AppProvider({ children }) {
     };
   };
 
-  const removeFromCart = (state, action) => {
-    const modified = state.products.map((p) =>
-      p.id === action.payload.id ? { ...p, inCart: false } : { ...p }
-    );
-    return {
-      ...state,
-      products: [...modified],
-    };
-  };
-
   const updateWishlist = (state, action) => {
     return {
       ...state,
       wishlist: action.payload,
-    };
-  };
-
-  const increaseQuantity = (state, action) => {
-    const modified = state.products.map((p) =>
-      p.id === action.payload ? { ...p, units: p.units + 1 } : { ...p }
-    );
-    return {
-      ...state,
-      products: [...modified],
-    };
-  };
-
-  const decreaseQuantity = (state, action) => {
-    const modified = state.products.map((p) =>
-      p.id === action.payload
-        ? p.units > 1
-          ? { ...p, units: p.units - 1 }
-          : { ...p, inCart: false }
-        : { ...p }
-    );
-    return {
-      ...state,
-      products: [...modified],
     };
   };
 
@@ -87,14 +53,8 @@ export function AppProvider({ children }) {
         };
       case "updateCart":
         return updateCart(state, action);
-      case "removeFromCart":
-        return removeFromCart(state, action);
       case "updateWishlist":
         return updateWishlist(state, action);
-      case "increaseQuantity":
-        return increaseQuantity(state, action);
-      case "decreaseQuantity":
-        return decreaseQuantity(state, action);
       case "addAddress":
         return addAddress(state, action);
       case "updateAddress":
