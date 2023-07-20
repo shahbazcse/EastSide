@@ -1,20 +1,6 @@
 import "./App.css";
-import {
-  Routes,
-  Route,
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
-import Home from "./pages/Home";
-import Products from "./pages/Products";
-import Profile from "./pages/Profile";
-import WishList from "./pages/WishList";
-import Cart from "./pages/Cart";
-import Login from "./pages/Login";
-import ProductDetails from "./pages/ProductDetails";
-import Checkout from "./pages/Checkout";
 import { useContext } from "react";
-import { FilterContext } from "./contexts/FilterContext";
+import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShirt,
@@ -23,13 +9,22 @@ import {
   faHouse,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import Mockman from "mockman-js";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
+import { AuthContext } from "./contexts/AuthContext";
+import { FilterContext } from "./contexts/FilterContext";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import Profile from "./pages/Profile";
+import WishList from "./pages/WishList";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
+import ProductDetails from "./pages/ProductDetails";
+import Checkout from "./pages/Checkout";
 import Signup from "./pages/Signup";
 import RequireAuth from "./components/RequireAuth";
-import { AuthContext } from "./contexts/AuthContext";
 import AddressPage from "./pages/AddressPage";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const navigate = useNavigate();
@@ -146,7 +141,6 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/mockman" element={<Mockman />} />
       </Routes>
     </div>
   );
