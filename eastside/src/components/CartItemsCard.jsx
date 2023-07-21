@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 import { AuthContext } from "../contexts/AuthContext";
 import {
@@ -12,11 +11,8 @@ import {
 export default function CartItemsCard({ ...prod }) {
   const { _id, title, price, qty, image, rating } = prod;
 
-  const cartPage = window.location.pathname === "/cart";
-  const wishlistPage = window.location.pathname === "/wishlist";
-
   const {
-    state: { cart, wishlist },
+    state: { wishlist },
     dispatch,
   } = useContext(AppContext);
 
@@ -46,7 +42,6 @@ export default function CartItemsCard({ ...prod }) {
     dispatch({ type: "updateCart", payload: cart });
   };
 
-  const inCart = cart.find(({ _id }) => _id === prod._id);
   const inWishlist = wishlist.find(({ _id }) => _id === prod._id);
 
   return (
@@ -84,24 +79,20 @@ export default function CartItemsCard({ ...prod }) {
           </div>
 
           <div className="cart-product__qty">
-            {cartPage && (
-              <>
-                <button
-                  disabled={qty === 1}
-                  className="cart-product__qty-btn"
-                  onClick={() => handleUpdateQuantity("decrement")}
-                >
-                  -
-                </button>
-                <span className="cart-product__qty-value">{qty}</span>
-                <button
-                  className="cart-product__qty-btn"
-                  onClick={() => handleUpdateQuantity("increment")}
-                >
-                  +
-                </button>
-              </>
-            )}
+            <button
+              disabled={qty === 1}
+              className="cart-product__qty-btn"
+              onClick={() => handleUpdateQuantity("decrement")}
+            >
+              -
+            </button>
+            <span className="cart-product__qty-value">{qty}</span>
+            <button
+              className="cart-product__qty-btn"
+              onClick={() => handleUpdateQuantity("increment")}
+            >
+              +
+            </button>
           </div>
 
           <div className="cart-product__btn-group">
@@ -113,38 +104,9 @@ export default function CartItemsCard({ ...prod }) {
             >
               {!inWishlist ? "Add to Wishlist" : "Remove from wishlist"}
             </button>
-            {!cartPage ? (
-              !inCart ? (
-                <button
-                  className="product-card__btn"
-                  onClick={() => dispatch({ type: "addToCart", payload: prod })}
-                >
-                  Add To Cart
-                </button>
-              ) : !wishlistPage ? (
-                <button className="product-card__btn in-cart-btn">
-                  <Link
-                    to="/cart"
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    Go to Cart
-                  </Link>
-                </button>
-              ) : (
-                <button
-                  className="product-card__btn in-cart-btn"
-                  onClick={() =>
-                    dispatch({ type: "increaseQuantity", payload: _id })
-                  }
-                >
-                  Add again
-                </button>
-              )
-            ) : (
-              <button className="product-card__btn" onClick={handleRemoveCart}>
-                Remove
-              </button>
-            )}
+            <button className="product-card__btn" onClick={handleRemoveCart}>
+              Remove
+            </button>
           </div>
         </div>
       </div>

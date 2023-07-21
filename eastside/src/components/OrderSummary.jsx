@@ -47,7 +47,7 @@ export default function OrderSummary({
           </p>
           <button
             onClick={() => setShowCheckout(false)}
-            className="bg-slate-500 text-white p-1 mt-2 rounded"
+            className="bg-slate-400 hover:bg-slate-500 text-white p-1 mt-2 rounded"
           >
             Change address
           </button>

@@ -12,13 +12,11 @@ export default function FilterBar() {
     <aside
       className={`filter-container ${drawer ? "show-filter" : "hide-filter"}`}
     >
-      <div className="filter-head">
-        <button
-          className="filter-clear-btn"
-          onClick={() => dispatch({ type: "clearFilters" })}
-        >
-          Clear Filters
-        </button>
+      <div
+        className="flex justify-center mx-auto bg-slate-400 hover:bg-slate-500 cursor-pointer text-[13px] py-1 px-2 rounded-md"
+        onClick={() => dispatch({ type: "clearFilters" })}
+      >
+        Clear Filters
       </div>
       <h4>Apply Filters:</h4>
       <div className="filter-sort">

@@ -5,16 +5,14 @@ import { AuthContext } from "../contexts/AuthContext";
 import {
   addToCart,
   addToWishlist,
-  deleteFromCart,
   deleteFromWishlist,
   updateQuantity,
 } from "../services/UserService";
 
 export default function ProductCard({ ...prod }) {
-  const { _id, title, price, category, image, rating, units } = prod;
+  const { _id, title, price, category, image, rating } = prod;
 
   const navigate = useNavigate();
-  const cartPage = window.location.pathname === "/cart";
   const wishlistPage = window.location.pathname === "/wishlist";
 
   const {
@@ -33,11 +31,6 @@ export default function ProductCard({ ...prod }) {
     } else {
       navigate("/login");
     }
-  };
-
-  const handleRemoveCart = async () => {
-    const cart = await deleteFromCart(token, _id);
-    dispatch({ type: "updateCart", payload: cart });
   };
 
   const handleUpdateQuantity = async () => {
@@ -89,21 +82,6 @@ export default function ProductCard({ ...prod }) {
           <strong>Category:</strong> {category}
         </p>
       </div>
-      {cartPage && (
-        <span>
-          <button
-            onClick={() => dispatch({ type: "decreaseQuantity", payload: _id })}
-          >
-            -
-          </button>
-          <span> {units} </span>
-          <button
-            onClick={() => dispatch({ type: "increaseQuantity", payload: _id })}
-          >
-            +
-          </button>
-        </span>
-      )}
       <button
         className="product-card__btn `"
         onClick={() =>
@@ -112,28 +90,22 @@ export default function ProductCard({ ...prod }) {
       >
         {!inWishlist ? "Add to Wishlist" : "Remove from wishlist"}
       </button>
-      {!cartPage ? (
-        !inCart ? (
-          <button className="product-card__btn" onClick={handleAddCart}>
-            Add To Cart
-          </button>
-        ) : !wishlistPage ? (
-          <button className="product-card__btn in-cart-btn">
-            <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
-              Go to Cart
-            </Link>
-          </button>
-        ) : (
-          <button
-            className="product-card__btn in-cart-btn"
-            onClick={handleUpdateQuantity}
-          >
-            Add again
-          </button>
-        )
+      {!inCart ? (
+        <button className="product-card__btn" onClick={handleAddCart}>
+          Add To Cart
+        </button>
+      ) : !wishlistPage ? (
+        <button className="product-card__btn in-cart-btn">
+          <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
+            Go to Cart
+          </Link>
+        </button>
       ) : (
-        <button className="product-card__btn" onClick={handleRemoveCart}>
-          Remove From Cart
+        <button
+          className="product-card__btn in-cart-btn"
+          onClick={handleUpdateQuantity}
+        >
+          Add again
         </button>
       )}
     </div>
