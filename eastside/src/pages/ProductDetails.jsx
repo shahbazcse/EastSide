@@ -13,13 +13,11 @@ import { ThreeDots } from "react-loader-spinner";
 export default function ProductDetails() {
   const { productId } = useParams();
   const navigate = useNavigate();
-  const cartPage = window.location.pathname === "/cart";
-  const wishlistPage = window.location.pathname === "/wishlist";
 
   const [loading, setLoading] = useState(true);
 
   const [prod, setProduct] = useState({});
-  const { _id, title, price, category, image, rating, qty } = prod;
+  const { _id, title, price, category, image, rating } = prod;
 
   const {
     state: { token },
@@ -132,25 +130,6 @@ export default function ProductDetails() {
               </div>
             </div>
             <div className="product-detail__btn-group">
-              {cartPage && (
-                <span>
-                  <button
-                    onClick={() =>
-                      dispatch({ type: "decreaseQuantity", payload: _id })
-                    }
-                  >
-                    -
-                  </button>
-                  <span> {qty} </span>
-                  <button
-                    onClick={() =>
-                      dispatch({ type: "increaseQuantity", payload: _id })
-                    }
-                  >
-                    +
-                  </button>
-                </span>
-              )}
               <button
                 className="product-card__btn `"
                 onClick={() =>
@@ -159,38 +138,18 @@ export default function ProductDetails() {
               >
                 {!inWishlist ? "Add to Wishlist" : "Remove from wishlist"}
               </button>
-              {!cartPage ? (
-                !inCart ? (
-                  <button className="product-card__btn" onClick={handleAddCart}>
-                    Add To Cart
-                  </button>
-                ) : !wishlistPage ? (
-                  <button className="product-card__btn in-cart-btn">
-                    <Link
-                      to="/cart"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Go to Cart
-                    </Link>
-                  </button>
-                ) : (
-                  <button
-                    className="product-card__btn in-cart-btn"
-                    onClick={() =>
-                      dispatch({ type: "increaseQuantity", payload: _id })
-                    }
-                  >
-                    Add again
-                  </button>
-                )
+              {!inCart ? (
+                <button className="product-card__btn" onClick={handleAddCart}>
+                  Add To Cart
+                </button>
               ) : (
-                <button
-                  className="product-card__btn"
-                  onClick={() =>
-                    dispatch({ type: "removeFromCart", payload: prod })
-                  }
-                >
-                  Remove From Cart
+                <button className="product-card__btn in-cart-btn">
+                  <Link
+                    to="/cart"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    Go to Cart
+                  </Link>
                 </button>
               )}
             </div>
