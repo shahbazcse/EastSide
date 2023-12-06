@@ -25,6 +25,7 @@ import Checkout from "./pages/Checkout";
 import Signup from "./pages/Signup";
 import RequireAuth from "./components/RequireAuth";
 import AddressPage from "./pages/AddressPage";
+import NonDesktopPage from './pages/NonDesktopPage';
 
 function App() {
   const navigate = useNavigate();
@@ -36,113 +37,118 @@ function App() {
   const { state, dispatch } = useContext(FilterContext);
 
   return (
-    <div className="App">
-      <ToastContainer autoClose={2000} theme="dark" />
-      <header>
-        <nav>
-          <NavLink to="/">
-            <div className="logo">
-              <FontAwesomeIcon icon={faHouse} />
-            </div>
-          </NavLink>
-          <form className="search-input">
-            <input
-              value={state.query}
-              onChange={(e) => {
-                navigate("/products");
-                dispatch({ type: "setQuery", payload: e.target.value });
-              }}
-              placeholder="Search Products"
-              type="text"
-            />
-          </form>
+    <>
+      <div className="block xl:hidden h-screen">
+        <NonDesktopPage />
+      </div>
+      <div className="App hidden xl:block h-screen">
+        <ToastContainer autoClose={2000} theme="dark" />
+        <header>
+          <nav>
+            <NavLink to="/">
+              <div className="logo">
+                <FontAwesomeIcon icon={faHouse} />
+              </div>
+            </NavLink>
+            <form className="search-input">
+              <input
+                value={state.query}
+                onChange={(e) => {
+                  navigate("/products");
+                  dispatch({ type: "setQuery", payload: e.target.value });
+                }}
+                placeholder="Search Products"
+                type="text"
+              />
+            </form>
 
-          <ul className="nav-links">
-            <li className="list">
-              <NavLink to="/products">
-                <FontAwesomeIcon icon={faShirt} />
-              </NavLink>
-            </li>
-
-            <li className="list">
-              <NavLink to="/wishlist">
-                <FontAwesomeIcon icon={faHeartCirclePlus} />
-              </NavLink>
-            </li>
-
-            <li className="list">
-              <NavLink to="/cart">
-                <FontAwesomeIcon icon={faCartPlus} />
-              </NavLink>
-            </li>
-
-            {token ? (
+            <ul className="nav-links">
               <li className="list">
-                <NavLink to="/profile">
-                  <FontAwesomeIcon icon={faUser} />
+                <NavLink to="/products">
+                  <FontAwesomeIcon icon={faShirt} />
                 </NavLink>
               </li>
-            ) : (
+
               <li className="list">
-                <NavLink to="/login">
-                  <FontAwesomeIcon icon={faUser} />
+                <NavLink to="/wishlist">
+                  <FontAwesomeIcon icon={faHeartCirclePlus} />
                 </NavLink>
               </li>
-            )}
-          </ul>
-        </nav>
-      </header>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-        <Route
-          path="/products/product/:productId"
-          element={<ProductDetails />}
-        />
-        <Route
-          path="/profile"
-          element={
-            <RequireAuth>
-              <Profile />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/address"
-          element={
-            <RequireAuth>
-              <AddressPage />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/wishlist"
-          element={
-            <RequireAuth>
-              <WishList />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <RequireAuth>
-              <Cart />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/checkout"
-          element={
-            <RequireAuth>
-              <Checkout />
-            </RequireAuth>
-          }
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
-    </div>
+
+              <li className="list">
+                <NavLink to="/cart">
+                  <FontAwesomeIcon icon={faCartPlus} />
+                </NavLink>
+              </li>
+
+              {token ? (
+                <li className="list">
+                  <NavLink to="/profile">
+                    <FontAwesomeIcon icon={faUser} />
+                  </NavLink>
+                </li>
+              ) : (
+                <li className="list">
+                  <NavLink to="/login">
+                    <FontAwesomeIcon icon={faUser} />
+                  </NavLink>
+                </li>
+              )}
+            </ul>
+          </nav>
+        </header>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route
+            path="/products/product/:productId"
+            element={<ProductDetails />}
+          />
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/address"
+            element={
+              <RequireAuth>
+                <AddressPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/wishlist"
+            element={
+              <RequireAuth>
+                <WishList />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <RequireAuth>
+                <Cart />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <RequireAuth>
+                <Checkout />
+              </RequireAuth>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 

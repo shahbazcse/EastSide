@@ -1,11 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Montserrat:wght@400;700&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&family=Courgette&family=Montserrat:wght@300&family=Nunito+Sans:ital@1&family=Poppins:wght@500&family=Raleway:wght@600&family=Roboto&display=swap");
+
 :root {
   --primary-color: #cb997e;
   --accent-color: #cb997e;
   --secondary-color: white;
   --text-color: white;
-  --btn-hover: #A5A58D;
+  --btn-hover: #a5a58d;
   --btn-disable: #424242;
+
+  --mont: "Montserrat";
+  --barlow: "Barlow Condensed";
+  --poppins: "Poppins";
+  --raleway: "Raleway";
+  --roboto: "Roboto";
 }
 
 * {
@@ -32,7 +40,7 @@ header {
   padding: 1.5rem 0;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 999;
 }
 
 nav {
@@ -827,7 +835,7 @@ input[type="range"] {
   font-size: 1.2rem;
   padding: 0.4rem 0;
   font-weight: bold;
-  background-color: #91683C;
+  background-color: #91683c;
   color: white;
   transition: all 0.1s linear;
 }
@@ -835,7 +843,7 @@ input[type="range"] {
 .checkout-btn:hover,
 .place-order-btn:hover {
   cursor: pointer;
-  background-color: #C19E77;
+  background-color: #c19e77;
 }
 
 /* ---------------------ADDRESS PAGE------------------ */
@@ -977,7 +985,7 @@ input[type="range"] {
 
 .checkout-container__new-address:hover {
   cursor: pointer;
-  background-color: #C19E77;
+  background-color: #c19e77;
   color: white;
 }
 
